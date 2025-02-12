@@ -1,0 +1,26 @@
+[
+    {
+        "type_of_plant": "Holly",
+        "season": "Winter",
+        "price": 13.99,
+        "image_link": "/static/products/winter/holly.jpg"
+    },
+    {
+        "type_of_plant": "Poinsettia",
+        "season": "Winter",
+        "price": 12.99,
+        "image_link": "/static/products/winter/poinsettia.jpg"
+    },
+    {
+        "type_of_plant": "Snowdrop",
+        "season": "Winter",
+        "price": 9.99,
+        "image_link": "/static/products/winter/snowdrop.jpg"
+    },
+    {
+        "type_of_plant": "Camellia",
+        "season": "Winter",
+        "price": 15.99,
+        "image_link": "/static/products/winter/camellia.jpg"
+    }
+]

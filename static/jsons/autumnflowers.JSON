@@ -1,0 +1,26 @@
+[
+    {
+        "type_of_plant": "Maple",
+        "season": "Autumn",
+        "price": 14.99,
+        "image_link": "/static/products/autumn/maple.jpg"
+    },
+    {
+        "type_of_plant": "Chrysanthemum",
+        "season": "Autumn",
+        "price": 9.99,
+        "image_link": "/static/products/autumn/chrysanthemum.jpg"
+    },
+    {
+        "type_of_plant": "Aster",
+        "season": "Autumn",
+        "price": 8.99,
+        "image_link": "/static/products/autumn/aster.jpg"
+    },
+    {
+        "type_of_plant": "Marigold",
+        "season": "Autumn",
+        "price": 7.99,
+        "image_link": "/static/products/autumn/marigold.jpg"
+    }
+]

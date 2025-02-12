@@ -24,9 +24,15 @@
         "image_link": "/static/products/summer/daffodil.jpg"
     },
     {
-        "type_of_plant": "Chrysanthemum",
-        "season": "Autumn",
+        "type_of_plant": "Daisy",
+        "season": "Summer",
+        "price": 6.99,
+        "image_link": "/static/products/summer/daisy.jpg"
+    },
+    {
+        "type_of_plant": "Lily",
+        "season": "Summer",
         "price": 9.99,
-        "image_link": "/static/products/summer/Chrysanthemum.jpg"
+        "image_link": "/static/products/summer/lily.jpg"
     }
 ]
