@@ -1,0 +1,32 @@
+[
+    {
+        "type_of_plant": "Rose",
+        "season": "Summer",
+        "price": 10.99,
+        "image_link": "/static/products/summer/rose.jpg"
+    },
+    {
+        "type_of_plant": "Tulip",
+        "season": "Summer",
+        "price": 8.99,
+        "image_link": "/static/products/summer/tulip.jpg"
+    },
+    {
+        "type_of_plant": "Sunflower",
+        "season": "Summer",
+        "price": 5.99,
+        "image_link": "/static/products/summer/sunflower.jpg"
+    },
+    {
+        "type_of_plant": "Daffodil",
+        "season": "Summer",
+        "price": 7.99,
+        "image_link": "/static/products/summer/daffodil.jpg"
+    },
+    {
+        "type_of_plant": "Chrysanthemum",
+        "season": "Autumn",
+        "price": 9.99,
+        "image_link": "/static/products/summer/Chrysanthemum.jpg"
+    }
+]
