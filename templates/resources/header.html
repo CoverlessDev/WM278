@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
-    <style>
-        .white-box {
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-        }
-        .white-box img {
-            margin-right: 10px;
-        }
-    </style>
 </head>
 <body>
-    <div class="header">
+<div class="header">
+    <a href="{{ url_for('home') }}">
         <div class="white-box">
             <img src="{{ url_for('static', filename='header/logo.png') }}" alt="Logo">
             <h1>WMGInvent</h1>
         </div>
-        <div class="nav">
-            {% include 'resources/menu.html' %}
-        </div>
-        <div class="user-profile-container">
-            {% include 'resources/user.html' %}
-        </div>
+    </a>
+    <div class="nav">
+        {% include 'resources/menu.html' %}
     </div>
+    <div class="user-profile-container">
+        <a href="{{ url_for('management') }}">
+            {% include 'resources/user.html' %}
+        </a>
+    </div>
+</div>
 </body>
 </html>

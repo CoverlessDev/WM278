@@ -1,6 +1,13 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --primary-bg: #568eac;
-    --primary-color: #568eac; /* Change this to blue */
+    --primary-color: #568eac;
     --secondary-bg: #ffffff;
     --secondary-color: #568eac;
     --hover-bg: #568eac;
@@ -9,8 +16,6 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #302f2f;
 }
 
@@ -26,6 +31,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+}
+
+.header img {
+    max-width: 100px;
+    max-height: 60px;
+    height: auto;
+    width: auto;
 }
 
 .nav {
@@ -40,12 +53,14 @@ body {
     color: var(--primary-color);
     padding: 10px;
     border-radius: 10px;
-
 }
 
 .user-profile-container {
     display: flex;
     align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .container {
@@ -92,7 +107,6 @@ body {
     text-align: center;
     transition: background-color 0.3s ease;
     border-radius: 10px;
-
 }
 
 .sidebar ul li a, .nav ul li a {
@@ -108,4 +122,27 @@ body {
 
 .sidebar ul li:hover a, .nav ul li:hover a {
     color: var(--hover-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.white-box {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.white-box img {
+    margin-right: 10px;
 }
