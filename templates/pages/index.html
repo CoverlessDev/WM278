@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ title }}</title>
+    <title>Flower Shop</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
         .product-grid {
@@ -120,8 +120,10 @@
         <div class="grid-container">
         {% for item in inventory %}
         <div class="grid-item">
-            <img src="{{ item.image_link }}" alt="{{ item.type_of_plant }}">
-            <h3>{{ item.type_of_plant }}</h3>
+            <a href="/product/{{ season }}/{{ item.type_of_plant }}">
+                <img src="{{ item.image_link }}" alt="{{ item.type_of_plant }}">
+                <h3>{{ item.type_of_plant }}</h3>
+            </a>
             <p>Season: {{ item.season }}</p>
             <p>Price: £{{ item.price }}</p>
         </div>

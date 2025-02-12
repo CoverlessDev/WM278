@@ -3,24 +3,40 @@
         "type_of_plant": "Maple",
         "season": "Autumn",
         "price": 14.99,
-        "image_link": "/static/products/autumn/maple.jpg"
+        "image_link": "/static/products/autumn/maple.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun to partial shade",
+        "heat": "Hardy in USDA zones 3-9",
+        "information": "Maple trees are known for their vibrant autumn foliage and are a popular choice for landscaping."
     },
     {
         "type_of_plant": "Chrysanthemum",
         "season": "Autumn",
         "price": 9.99,
-        "image_link": "/static/products/autumn/chrysanthemum.jpg"
+        "image_link": "/static/products/autumn/chrysanthemum.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun",
+        "heat": "Hardy in USDA zones 5-9",
+        "information": "Chrysanthemums, or mums, are a classic autumn flower with a wide range of colors and forms."
     },
     {
         "type_of_plant": "Aster",
         "season": "Autumn",
         "price": 8.99,
-        "image_link": "/static/products/autumn/aster.jpg"
+        "image_link": "/static/products/autumn/aster.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun to partial shade",
+        "heat": "Hardy in USDA zones 4-8",
+        "information": "Asters are daisy-like perennials that bring a splash of color to the garden in late summer and fall."
     },
     {
         "type_of_plant": "Marigold",
         "season": "Autumn",
         "price": 7.99,
-        "image_link": "/static/products/autumn/marigold.jpg"
+        "image_link": "/static/products/autumn/marigold.jpg",
+        "hydration": "Low to moderate",
+        "light": "Full sun",
+        "heat": "Hardy in USDA zones 2-11",
+        "information": "Marigolds are easy to grow and are known for their bright, cheerful flowers and pest-repellent properties."
     }
 ]

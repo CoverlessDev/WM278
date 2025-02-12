@@ -3,36 +3,60 @@
         "type_of_plant": "Rose",
         "season": "Summer",
         "price": 10.99,
-        "image_link": "/static/products/summer/rose.jpg"
+        "image_link": "/static/products/summer/rose.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun",
+        "heat": "Hardy in USDA zones 5-9",
+        "information": "Roses are classic garden flowers known for their beauty and fragrance, blooming throughout the summer."
     },
     {
         "type_of_plant": "Tulip",
         "season": "Summer",
         "price": 8.99,
-        "image_link": "/static/products/summer/tulip.jpg"
+        "image_link": "/static/products/summer/tulip.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun to partial shade",
+        "heat": "Hardy in USDA zones 3-8",
+        "information": "Tulips are spring-blooming perennials with bright, cup-shaped flowers, often planted in the fall."
     },
     {
         "type_of_plant": "Sunflower",
         "season": "Summer",
         "price": 5.99,
-        "image_link": "/static/products/summer/sunflower.jpg"
+        "image_link": "/static/products/summer/sunflower.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun",
+        "heat": "Hardy in USDA zones 4-9",
+        "information": "Sunflowers are tall, bright flowers that follow the sun and are a favorite in summer gardens."
     },
     {
         "type_of_plant": "Daffodil",
         "season": "Summer",
         "price": 7.99,
-        "image_link": "/static/products/summer/daffodil.jpg"
+        "image_link": "/static/products/summer/daffodil.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun to partial shade",
+        "heat": "Hardy in USDA zones 3-8",
+        "information": "Daffodils are spring-blooming bulbs with bright yellow or white flowers, often associated with the arrival of spring."
     },
     {
         "type_of_plant": "Daisy",
         "season": "Summer",
         "price": 6.99,
-        "image_link": "/static/products/summer/daisy.jpg"
+        "image_link": "/static/products/summer/daisy.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun to partial shade",
+        "heat": "Hardy in USDA zones 4-8",
+        "information": "Daisies are cheerful flowers with white petals and yellow centers, blooming from spring to fall."
     },
     {
         "type_of_plant": "Lily",
         "season": "Summer",
         "price": 9.99,
-        "image_link": "/static/products/summer/lily.jpg"
+        "image_link": "/static/products/summer/lily.jpg",
+        "hydration": "Moderate",
+        "light": "Full sun to partial shade",
+        "heat": "Hardy in USDA zones 4-9",
+        "information": "Lilies are elegant, fragrant flowers that bloom in a variety of colors, adding beauty to summer gardens."
     }
 ]
