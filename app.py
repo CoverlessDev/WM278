@@ -11,22 +11,22 @@ inventory = [
 class HomePage(MethodView):
     def get(self):
         # Render the main landing page with inventory information
-        return render_template('index.html', inventory=inventory)
+        return render_template('pages/index.html', inventory=inventory)
 
 class InventoryPage(MethodView):
     def get(self):
         # Render the inventory tracking page
-        return render_template('inventory.html', inventory=inventory)
+        return render_template('pages/inventory.html', inventory=inventory)
 
 class PurchasePage(MethodView):
     def get(self):
         # Render the purchasing page
-        return render_template('purchase.html')
+        return render_template('pages/purchase.html')
 
 class ManagementPage(MethodView):
     def get(self):
         # Render the management page for authorised users
-        return render_template('management.html')
+        return render_template('pages/management.html')
 
 # URL route mappings using as_view to register the class-based views
 app.add_url_rule('/', view_func=HomePage.as_view('home'))

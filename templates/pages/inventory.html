@@ -1,0 +1,15 @@
+{% include '/resources/header.html' %}
+<body>
+    <h1>Inventory Tracking</h1>
+    <div class="container">
+        {% include 'resources/sidebar.html' %}
+        <div class="main-content">
+            <ul>
+                {% for item in inventory %}
+                    <li>{{ item.name }} - Stock: {{ item.stock }} - Price: ${{ item.price }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+{% include '/resources/footer.html' %}
