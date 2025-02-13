@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <style>
+        .dashboard-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard-box {
+            background-color: #ffffff;
+            color: #568eac;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-button {
+            display: inline-block;
+            padding: 20px;
+            margin: 10px;
+            background-color: #568eac;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+        }
+
+        .dashboard-button:hover {
+            background-color: #ffffff;
+            color: #568eac;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="main-content dashboard-container">
+        <div class="dashboard-box">
+            <h1>Dashboard</h1>
+        </div>
+        <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
+        <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
+    </div>
+</div>
+</body>
+</html>

@@ -7,7 +7,8 @@
         "hydration": "Moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 3-9",
-        "information": "Maple trees are known for their vibrant autumn foliage and are a popular choice for landscaping."
+        "information": "Maple trees are known for their vibrant autumn foliage and are a popular choice for landscaping.",
+        "stock": 10
     },
     {
         "type_of_plant": "Chrysanthemum",
@@ -17,7 +18,8 @@
         "hydration": "Moderate",
         "light": "Full sun",
         "heat": "Hardy in USDA zones 5-9",
-        "information": "Chrysanthemums, or mums, are a classic autumn flower with a wide range of colors and forms."
+        "information": "Chrysanthemums, or mums, are a classic autumn flower with a wide range of colors and forms.",
+        "stock": 5
     },
     {
         "type_of_plant": "Aster",
@@ -27,7 +29,8 @@
         "hydration": "Moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 4-8",
-        "information": "Asters are daisy-like perennials that bring a splash of color to the garden in late summer and fall."
+        "information": "Asters are daisy-like perennials that bring a splash of color to the garden in late summer and fall.",
+        "stock": 7
     },
     {
         "type_of_plant": "Marigold",
@@ -37,6 +40,7 @@
         "hydration": "Low to moderate",
         "light": "Full sun",
         "heat": "Hardy in USDA zones 2-11",
-        "information": "Marigolds are easy to grow and are known for their bright, cheerful flowers and pest-repellent properties."
+        "information": "Marigolds are easy to grow and are known for their bright, cheerful flowers and pest-repellent properties.",
+        "stock": 3
     }
 ]

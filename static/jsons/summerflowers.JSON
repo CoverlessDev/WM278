@@ -7,7 +7,8 @@
         "hydration": "Moderate",
         "light": "Full sun",
         "heat": "Hardy in USDA zones 5-9",
-        "information": "Roses are classic garden flowers known for their beauty and fragrance, blooming throughout the summer."
+        "information": "Roses are classic garden flowers known for their beauty and fragrance, blooming throughout the summer.",
+        "stock": 10
     },
     {
         "type_of_plant": "Tulip",
@@ -17,7 +18,8 @@
         "hydration": "Moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 3-8",
-        "information": "Tulips are spring-blooming perennials with bright, cup-shaped flowers, often planted in the fall."
+        "information": "Tulips are spring-blooming perennials with bright, cup-shaped flowers, often planted in the fall.",
+        "stock": 5
     },
     {
         "type_of_plant": "Sunflower",
@@ -27,7 +29,8 @@
         "hydration": "Moderate",
         "light": "Full sun",
         "heat": "Hardy in USDA zones 4-9",
-        "information": "Sunflowers are tall, bright flowers that follow the sun and are a favorite in summer gardens."
+        "information": "Sunflowers are tall, bright flowers that follow the sun and are a favorite in summer gardens.",
+        "stock": 7
     },
     {
         "type_of_plant": "Daffodil",
@@ -37,7 +40,8 @@
         "hydration": "Moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 3-8",
-        "information": "Daffodils are spring-blooming bulbs with bright yellow or white flowers, often associated with the arrival of spring."
+        "information": "Daffodils are spring-blooming bulbs with bright yellow or white flowers, often associated with the arrival of spring.",
+        "stock": 3
     },
     {
         "type_of_plant": "Daisy",
@@ -47,7 +51,8 @@
         "hydration": "Moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 4-8",
-        "information": "Daisies are cheerful flowers with white petals and yellow centers, blooming from spring to fall."
+        "information": "Daisies are cheerful flowers with white petals and yellow centers, blooming from spring to fall.",
+        "stock": 8
     },
     {
         "type_of_plant": "Lily",
@@ -57,6 +62,7 @@
         "hydration": "Moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 4-9",
-        "information": "Lilies are elegant, fragrant flowers that bloom in a variety of colors, adding beauty to summer gardens."
+        "information": "Lilies are elegant, fragrant flowers that bloom in a variety of colors, adding beauty to summer gardens.",
+        "stock": 6
     }
 ]

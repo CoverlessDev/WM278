@@ -7,7 +7,8 @@
         "hydration": "Low to moderate",
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 5-9",
-        "information": "Holly plants are known for their bright red berries and glossy green leaves, adding color to winter gardens."
+        "information": "Holly plants are known for their bright red berries and glossy green leaves, adding color to winter gardens.",
+        "stock": 10
     },
     {
         "type_of_plant": "Poinsettia",
@@ -17,7 +18,8 @@
         "hydration": "Moderate",
         "light": "Indirect sunlight",
         "heat": "Keep above 60°F",
-        "information": "Poinsettias are popular holiday plants with bright red, white, or pink bracts and dark green leaves."
+        "information": "Poinsettias are popular holiday plants with bright red, white, or pink bracts and dark green leaves.",
+        "stock": 5
     },
     {
         "type_of_plant": "Snowdrop",
@@ -26,6 +28,8 @@
         "image_link": "/static/products/winter/snowdrop.jpg",
         "hydration": "Moderate",
         "light": "Partial shade",
-        "heat": "Hardy in USDA zones 3-7"
+        "heat": "Hardy in USDA zones 3-7",
+        "information": "Snowdrops are small, early-blooming bulbs with white, bell-shaped flowers that signal the arrival of spring.",
+        "stock": 7
     }
     ]
