@@ -57,6 +57,17 @@ class ProfilePage(MethodView):
         return render_template('pages/profile.html', username="John Doe", user_email="john.doe@example.com")
 
 
+@app.route('/search')
+def search():
+    query = request.args.get('query', '').lower()
+    all_seasons = ['summer', 'autumn', 'winter']
+    results = []
+    for season in all_seasons:
+        inventory = load_inventory(season)
+        results.extend([product for product in inventory if query in product['type_of_plant'].lower()])
+    return render_template('pages/search_results.html', results=results, query=query)
+
+
 app.add_url_rule('/', view_func=HomePage.as_view('home'))
 app.add_url_rule('/product/<season>/<product_name>', view_func=ProductPage.as_view('product'))
 app.add_url_rule('/inventory', view_func=InventoryPage.as_view('inventory'))

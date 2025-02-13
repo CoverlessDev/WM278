@@ -106,8 +106,12 @@
     {% include 'resources/sidebar.html' %}
     <div class="main-content">
         <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <img src="/static/header/search-icon.png" alt="Search">
+            <form action="{{ url_for('search') }}" method="get">
+                <input type="text" name="query" class="search-input" placeholder="Search for a plant...">
+                <button type="submit" class="search-button">
+                    <img src="{{ url_for('static', filename='search-icon.png') }}" alt="Search">
+                </button>
+            </form>
         </div>
         <div class="grid">
             <div class="item"><a href="/?season=summer"><img src="/static/banner/summer.jpg" alt="Summer"></a>
@@ -118,17 +122,17 @@
                 <p>Winter</p></div>
         </div>
         <div class="grid-container">
-        {% for item in inventory %}
-        <div class="grid-item">
-            <a href="/product/{{ season }}/{{ item.type_of_plant }}">
-                <img src="{{ item.image_link }}" alt="{{ item.type_of_plant }}">
-                <h3>{{ item.type_of_plant }}</h3>
-            </a>
-            <p>Season: {{ item.season }}</p>
-            <p>Price: £{{ item.price }}</p>
+            {% for item in inventory %}
+                <div class="grid-item">
+                    <a href="/product/{{ season }}/{{ item.type_of_plant }}">
+                        <img src="{{ item.image_link }}" alt="{{ item.type_of_plant }}">
+                        <h3>{{ item.type_of_plant }}</h3>
+                    </a>
+                    <p>Season: {{ item.season }}</p>
+                    <p>Price: £{{ item.price }}</p>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     </div>
 </div>
 {% include 'resources/footer.html' %}

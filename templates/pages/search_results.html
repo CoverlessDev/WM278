@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .grid-item {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #000000;
+        }
+
+        .grid-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+{% include 'resources/header.html' %}
+
+<div class="container">
+    {% include 'resources/sidebar.html' %}
+    <div class="main-content">
+        <div class="back-button-container">
+            <a href="{{ url_for('home') }}" class="button">Back to Home</a>
+        </div>
+        <h1>Search Results for "{{ query }}"</h1>
+        {% if results %}
+            <div class="grid-container">
+                {% for item in results %}
+                    <div class="grid-item">
+                        <a href="{{ url_for('product', season=item.season, product_name=item.type_of_plant) }}">
+                            <img src="{{ item.image_link }}" alt="{{ item.type_of_plant }}">
+                            <h3>{{ item.type_of_plant }}</h3>
+                        </a>
+                        <p>Season: {{ item.season }}</p>
+                        <p>Price: £{{ item.price }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'resources/footer.html' %}
+</body>
+</html>

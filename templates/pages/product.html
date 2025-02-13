@@ -54,6 +54,12 @@
         .product-details-box p:last-child {
             border-right: none;
         }
+
+        .back-button-container {
+            display: flex;
+            justify-content: flex-start;
+            margin: -10px 0 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +68,10 @@
 <div class="container">
     {% include 'resources/sidebar.html' %}
     <div class="main-content">
+        <div class="back-button-container">
+            <a href="{{ url_for('home', season=product.season|lower) }}" class="button">Back to {{ product.season }}
+                Flowers</a>
+        </div>
         <div class="product-detail">
             <div class="product-image">
                 <img src="{{ product.image_link }}" alt="{{ product.type_of_plant }}">
