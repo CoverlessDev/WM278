@@ -17,7 +17,7 @@
         "image_link": "/static/products/winter/poinsettia.jpg",
         "hydration": "Moderate",
         "light": "Indirect sunlight",
-        "heat": "Keep above 60°F",
+        "heat": "Keep above 60\u00c2\u00b0F",
         "information": "Poinsettias are popular holiday plants with bright red, white, or pink bracts and dark green leaves.",
         "stock": 5
     },
@@ -32,4 +32,4 @@
         "information": "Snowdrops are small, early-blooming bulbs with white, bell-shaped flowers that signal the arrival of spring.",
         "stock": 7
     }
-    ]
+]

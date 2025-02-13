@@ -1,0 +1,40 @@
+<!-- templates/resources/inventory_chart.html -->
+<div class="dashboard-box chart-container">
+    <canvas id="inventoryChart" class="chart-box"></canvas>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/inventory')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('inventoryChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(item => item.type_of_plant),
+                        datasets: [{
+                            label: 'Stock',
+                            data: data.map(item => item.stock),
+                            backgroundColor: 'rgba(86, 142, 172, 0.5)',
+                            borderColor: 'rgba(86, 142, 172, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Stock Overview'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+    });
+</script>

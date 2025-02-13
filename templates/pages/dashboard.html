@@ -3,6 +3,7 @@
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .dashboard-container {
             padding: 20px;
@@ -33,6 +34,16 @@
             background-color: #ffffff;
             color: #568eac;
         }
+
+        .chart-container {
+            width: 50%;
+            float: left;
+        }
+
+        .chart-box {
+            width: 100%;
+            height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -44,6 +55,7 @@
         <div class="dashboard-box">
             <h1>Dashboard</h1>
         </div>
+        {% include 'resources/inventory_chart.html' %}
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
         <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
     </div>

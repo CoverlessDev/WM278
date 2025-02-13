@@ -8,7 +8,7 @@
         "light": "Full sun",
         "heat": "Hardy in USDA zones 5-9",
         "information": "Roses are classic garden flowers known for their beauty and fragrance, blooming throughout the summer.",
-        "stock": 10
+        "stock": 14
     },
     {
         "type_of_plant": "Tulip",
@@ -19,7 +19,7 @@
         "light": "Full sun to partial shade",
         "heat": "Hardy in USDA zones 3-8",
         "information": "Tulips are spring-blooming perennials with bright, cup-shaped flowers, often planted in the fall.",
-        "stock": 5
+        "stock": 17
     },
     {
         "type_of_plant": "Sunflower",

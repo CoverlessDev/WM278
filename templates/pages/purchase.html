@@ -1,6 +1,150 @@
-{% include 'resources/header.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchasing Management</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <style>
+
+        .inventory-container {
+            padding: 20px;
+
+        }
+
+        .dashboard-container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .dashboard-box {
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            color: #568eac;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 100%;
+            width: 300px;
+        }
+
+        .purchase-button {
+            display: inline-block;
+            padding: 20px;
+            margin: 10px;
+            background-color: #568eac;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+        }
+
+        .purchase-button:hover {
+            background-color: #ffffff;
+            color: #568eac;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            color: #568eac;
+        }
+
+        table, th, td {
+            border: 1px solid #568eac;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #568eac;
+            color: white;
+        }
+
+        .highlight {
+            background-color: #ffeb3b;
+        }
+
+        .table-container {
+            flex: 1;
+            margin-right: 20px;
+            padding: 20px;
+        }
+
+        .form-container {
+            flex: 0 0 300px;
+        }
+
+        .form-box {
+            padding: 20px;
+            background-color: #ffffff;
+            color: #568eac;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        function highlightRow(row) {
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(r => r.classList.remove('highlight'));
+            row.classList.add('highlight');
+            document.getElementById('selectedProduct').value = row.dataset.product;
+        }
+    </script>
+</head>
 <body>
-    <h1>Purchase Management</h1>
-    <p>Manage purchasing operations here.</p>
-</body>
+{% include 'resources/header.html' %}
+<div class="container">
+    {% include 'resources/sidebar.html' %}
+    <div class="main-content inventory-container">
+        <div class="dashboard-container">
+            <div class="dashboard-box">
+                <h1>Purchasing Management</h1>
+                <p>Manage your purchasing activities here.</p>
+            </div>
+        </div>
+        <div class="table-container">
+
+            {% include 'resources/dashboard_header.html' %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Type of Plant</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in inventory %}
+                    <tr data-product="{{ product.type_of_plant }}" onclick="highlightRow(this)">
+                        <td>{{ product.type_of_plant }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.stock }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="form-container">
+            <div class="form-box">
+                <form method="POST" action="{{ url_for('purchase') }}">
+                    <input type="hidden" id="selectedProduct" name="selectedProduct">
+                    <label for="amount">Amount to Buy:</label>
+                    <input type="number" id="amount" name="amount" min="1" required>
+                    <button type="submit" class="purchase-button">Buy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% include 'resources/footer.html' %}
+</body>
+</html>
