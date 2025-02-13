@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Report</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <style>
+        .inventory-container {
+            padding: 20px;
+            display: block;
+        }
+
+        .report-summary, .low-stock-table {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            color: #568eac;
+        }
+
+        table, th, td {
+            border: 1px solid #568eac;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #568eac;
+            color: white;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-box {
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            color: #568eac;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 100%;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+{% include 'resources/header.html' %}
+<div class="container">
+    {% include 'resources/sidebar.html' %}
+    <div class="main-content inventory-container">
+        <div class="dashboard-container">
+            <div class="dashboard-box">
+                <h1>Inventory Report</h1>
+                <p>Instant inventory report</p>
+            </div>
+        </div>
+
+        {% include 'resources/dashboard_header.html' %}
+        <div class="report-summary">
+            <h1>Inventory Report</h1>
+            <p>Total Stock: {{ total_stock }}</p>
+            <p>Total Price: £{{ total_price }}</p>
+        </div>
+
+        <div class="low-stock-table">
+            <h2>Items with Stock Below 10</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Type of Plant</th>
+                    <th>Season</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in low_stock_items %}
+                    <tr>
+                        <td>{{ item.type_of_plant }}</td>
+                        <td>{{ item.season }}</td>
+                        <td>£{{ item.price }}</td>
+                        <td>{{ item.stock }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% include 'resources/footer.html' %}
+</body>
+</html>
