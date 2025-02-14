@@ -9,12 +9,17 @@
             display: block;
         }
 
-        .report-summary, .low-stock-table {
+        .low-stock-table, .all-stock-table, .cost-breakdown-table {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+        }
+
+        .tables-container {
+            display: flex;
+            gap: 20px;
         }
 
         table {
@@ -58,6 +63,23 @@
             max-width: 100%;
             width: 300px;
         }
+
+        .download-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #568eac;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .download-button:hover {
+            background-color: #ffffff;
+            color: #568eac;
+        }
     </style>
 </head>
 <body>
@@ -73,35 +95,88 @@
         </div>
 
         {% include 'resources/dashboard_header.html' %}
-        <div class="report-summary">
-            <h1>Inventory Report</h1>
-            <p>Total Stock: {{ total_stock }}</p>
-            <p>Total Price: £{{ total_price }}</p>
+
+        <div class="tables-container">
+            <div class="low-stock-table">
+                <h2>Items with Stock Below 10</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Type of Plant</th>
+                        <th>Season</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in low_stock_items %}
+                        <tr>
+                            <td>{{ item.type_of_plant }}</td>
+                            <td>{{ item.season }}</td>
+                            <td>£{{ item.price }}</td>
+                            <td>{{ item.stock }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="all-stock-table">
+                <h2>All Stock Levels</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Type of Plant</th>
+                        <th>Season</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in inventory %}
+                        <tr>
+                            <td>{{ item.type_of_plant }}</td>
+                            <td>{{ item.season }}</td>
+                            <td>£{{ item.price }}</td>
+                            <td>{{ item.stock }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cost-breakdown-table">
+                <h2>Cost Breakdown</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Type of Plant</th>
+                        <th>Season</th>
+                        <th>Stock</th>
+                        <th>Total Cost</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in inventory %}
+                        <tr>
+                            <td>{{ item.type_of_plant }}</td>
+                            <td>{{ item.season }}</td>
+                            <td>{{ item.stock }}</td>
+                            <td>£{{ item.stock * item.price }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="3">Grand Total</th>
+                        <th>£{{ total_price }}</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
 
-        <div class="low-stock-table">
-            <h2>Items with Stock Below 10</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Type of Plant</th>
-                    <th>Season</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for item in low_stock_items %}
-                    <tr>
-                        <td>{{ item.type_of_plant }}</td>
-                        <td>{{ item.season }}</td>
-                        <td>£{{ item.price }}</td>
-                        <td>{{ item.stock }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <a href="{{ url_for('download_inventory_report') }}" class="download-button">Download Report</a>
     </div>
 </div>
 {% include 'resources/footer.html' %}

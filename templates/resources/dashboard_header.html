@@ -6,37 +6,38 @@
 </head>
 <style>
     .dashboard-container {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
 
-.dashboard-button {
-    display: inline-block;
-    padding: 20px;
-    margin: 10px;
-    background-color: #568eac;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-size: 18px;
-}
+    .dashboard-button {
+        display: inline-block;
+        padding: 20px;
+        margin: 10px;
+        background-color: #568eac;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+    }
 
-.dashboard-button:hover {
-    background-color: #ffffff;
-    color: #568eac;
-}
+    .dashboard-button:hover {
+        background-color: #ffffff;
+        color: #568eac;
+    }
 </style>
 <body>
 <div class="container">
     <div class="main-content dashboard-container">
         <a href="{{ url_for('dashboard') }}" class="dashboard-button">Back</a>
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
+        <a href="{{ url_for('inventory_report') }}" class="dashboard-button">Inventory Report</a>
         <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
-        <a href="{{ url_for('inventory_report') }}" class = "dashboard-button">Inventory Report</a>
+
 
     </div>
 </div>

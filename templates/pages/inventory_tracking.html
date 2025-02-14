@@ -6,7 +6,6 @@
     <style>
         .inventory-container {
             padding: 20px;
-
         }
 
         .grid-container {
@@ -48,14 +47,18 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             max-width: 100%;
-            width: 300px;
+            width: 600px; /* Increased width */
+        }
+
+        #stockChart {
+            width: 100%; /* Make the canvas take the full width of the container */
+            height: 400px; /* Increased height */
         }
     </style>
 </head>
 <body>
 {% include 'resources/header.html' %}
 <div class="container">
-
     {% include 'resources/sidebar.html' %}
     <div class="main-content inventory-container">
         <div class="dashboard-container">
@@ -64,10 +67,8 @@
                 <p>Track your inventory here</p>
             </div>
         </div>
-
         {% include 'resources/dashboard_header.html' %}
         <div class="grid-container">
-
             {% for item in inventory %}
                 <div class="grid-item">
                     <img src="{{ item.image_link }}" alt="{{ item.type_of_plant }}">
@@ -78,9 +79,81 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="dashboard-container">
+            <div class="dashboard-box">
+                <canvas id="stockChart"></canvas>
+            </div>
+        </div>
     </div>
 </div>
-
 {% include 'resources/footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('{{ url_for('static', filename='jsons/stock_changes_log.JSON') }}')
+            .then(response => response.json())
+            .then(data => {
+                console.log('JSON data fetched:', data); // Debug log
+                const labels = [];
+                const stockChanges = {};
+
+                data.forEach(entry => {
+                    const date = new Date(entry.timestamp).toLocaleDateString();
+                    if (!labels.includes(date)) {
+                        labels.push(date);
+                    }
+                    if (!stockChanges[entry.product_name]) {
+                        stockChanges[entry.product_name] = [];
+                    }
+                    stockChanges[entry.product_name].push(entry.new_stock);
+                });
+
+                const datasets = Object.keys(stockChanges).map(product_name => {
+                    return {
+                        label: product_name,
+                        data: stockChanges[product_name],
+                        fill: false,
+                        borderColor: getRandomColor()
+                    };
+                });
+
+                const ctx = document.getElementById('stockChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Stock Changes Over Time'
+                        },
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log('Chart created'); // Debug log
+            })
+            .catch(error => console.error('Error fetching JSON data:', error));
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    });
+</script>
 </body>
 </html>

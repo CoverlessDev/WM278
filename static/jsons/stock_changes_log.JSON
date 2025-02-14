@@ -1,0 +1,23 @@
+[
+    {
+        "product_name": "Daffodil",
+        "season": "Summer",
+        "old_stock": 3,
+        "new_stock": 4,
+        "timestamp": "2025-02-14T13:42:34.680Z"
+    },
+    {
+        "product_name": "Daffodil",
+        "season": "Summer",
+        "old_stock": 4,
+        "new_stock": 5,
+        "timestamp": "2025-02-14T13:45:26.295Z"
+    },
+    {
+        "product_name": "Marigold",
+        "season": "Autumn",
+        "old_stock": 3,
+        "new_stock": 4,
+        "timestamp": "2025-02-14T13:52:41.218217"
+    }
+]
