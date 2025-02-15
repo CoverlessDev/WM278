@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 from flask.views import MethodView
 from datetime import datetime
 import os
@@ -20,6 +20,12 @@ def load_product(season, product_name):
         if product['type_of_plant'] == product_name:
             return product
     return None
+
+
+def load_sales_data():
+    file_path = 'static/jsons/sales.JSON'
+    with open(file_path) as f:
+        return json.load(f)
 
 
 def load_all_inventory():
@@ -172,6 +178,14 @@ def api_inventory():
     return json.dumps(inventory)
 
 
+@app.route('/api/changes')
+def api_changes():
+    log_file_path = 'static/jsons/stock_changes_log.JSON'
+    with open(log_file_path, 'r') as log_file:
+        log_data = json.load(log_file)
+    return jsonify(log_data)
+
+
 @app.route('/download_inventory_report')
 def download_inventory_report():
     inventory = load_all_inventory()
@@ -190,6 +204,12 @@ def download_inventory_report():
 def inventory_tracking():
     inventory = load_all_inventory()
     return render_template('pages/inventory_tracking.html', inventory=inventory)
+
+
+@app.route('/api/sales_data')
+def api_sales_data():
+    sales_data = load_sales_data()
+    return jsonify(sales_data)
 
 
 app.add_url_rule('/', view_func=HomePage.as_view('home'))

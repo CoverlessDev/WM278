@@ -1,14 +1,22 @@
-<!-- templates/resources/inventory_chart.html -->
 <div class="dashboard-box chart-container">
-    <canvas id="inventoryChart" class="chart-box"></canvas>
+    <div class="chart-content">
+        <canvas id="inventory_chart" class="chart-box"></canvas>
+        <h2>Inventory for each item</h2>
+        <p>Each bar in the chart represents the stock level of a different type of plant in the inventory.</p>
+    </div>
 </div>
-
+<style>
+    .chart-box {
+        width: 100%;
+        height: 300px;
+    }
+</style>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         fetch('/api/inventory')
             .then(response => response.json())
             .then(data => {
-                const ctx = document.getElementById('inventoryChart').getContext('2d');
+                const ctx = document.getElementById('inventory_chart').getContext('2d');
                 const chart = new Chart(ctx, {
                     type: 'bar',
                     data: {

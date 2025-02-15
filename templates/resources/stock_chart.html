@@ -1,0 +1,95 @@
+<div class="dashboard-box chart-container">
+    <div class="chart-content">
+        <canvas id="stock_chart" class="chart-box"></canvas>
+        <h2>Stock Changes Over Time</h2>
+        <p>Each point on the scatter plot represents a stock change event for a product, with the x-axis
+            showing the date and the y-axis showing the stock level.</p>
+    </div>
+</div>
+<style>
+    .chart-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chart-box {
+        width: 100%;
+        height: 300px;
+    }
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/changes')
+            .then(response => response.json())
+            .then(data => {
+                console.log('JSON data fetched:', data); // Debug log
+                const stockChanges = {};
+
+                data.forEach(entry => {
+                    const date = new Date(entry.timestamp);
+                    if (!stockChanges[entry.product_name]) {
+                        stockChanges[entry.product_name] = [];
+                    }
+                    stockChanges[entry.product_name].push({x: date, y: entry.new_stock});
+                });
+
+                const datasets = Object.keys(stockChanges).map(product_name => {
+                    return {
+                        label: product_name,
+                        data: stockChanges[product_name],
+                        showLine: true,
+                        fill: false,
+                        borderColor: getRandomColor()
+                    };
+                });
+
+                const ctx = document.getElementById('stock_chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Stock Changes Over Time'
+                        },
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Stock'
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log('Chart created'); // Debug log
+            })
+            .catch(error => console.error('Error fetching JSON data:', error));
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    });
+</script>

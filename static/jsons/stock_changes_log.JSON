@@ -18,6 +18,55 @@
         "season": "Autumn",
         "old_stock": 3,
         "new_stock": 4,
-        "timestamp": "2025-02-14T13:52:41.218217"
+        "timestamp": "2025-02-14T13:52:41.218Z"
+    },
+    {
+        "product_name": "Maple",
+        "season": "Autumn",
+        "old_stock": 10,
+        "new_stock": 9,
+        "timestamp": "2025-02-15T10:15:00.000Z"
+    },
+    {
+        "product_name": "Chrysanthemum",
+        "season": "Autumn",
+        "old_stock": 5,
+        "new_stock": 6,
+        "timestamp": "2025-02-16T11:30:00.000Z"
+    },
+    {
+        "product_name": "Aster",
+        "season": "Autumn",
+        "old_stock": 7,
+        "new_stock": 8,
+        "timestamp": "2025-02-17T12:45:00.000Z"
+    },
+    {
+        "product_name": "Marigold",
+        "season": "Autumn",
+        "old_stock": 4,
+        "new_stock": 3,
+        "timestamp": "2025-02-18T14:00:00.000Z"
+    },
+    {
+        "product_name": "Daffodil",
+        "season": "Summer",
+        "old_stock": 5,
+        "new_stock": 6,
+        "timestamp": "2025-02-19T15:15:00.000Z"
+    },
+    {
+        "product_name": "Maple",
+        "season": "Autumn",
+        "old_stock": 9,
+        "new_stock": 8,
+        "timestamp": "2025-02-20T16:30:00.000Z"
+    },
+    {
+        "product_name": "Chrysanthemum",
+        "season": "Autumn",
+        "old_stock": 6,
+        "new_stock": 7,
+        "timestamp": "2025-02-21T17:45:00.000Z"
     }
 ]
