@@ -22,6 +22,16 @@ def load_product(season, product_name):
     return None
 
 
+def calculate_metrics():
+    inventory = load_all_inventory()
+    total_profit = sum(item['stock'] * item['price'] for item in inventory)
+    amount_of_stock = sum(item['stock'] for item in inventory)
+    return {
+        "total_profit": round(total_profit, 2),
+        "amount_of_stock": amount_of_stock
+    }
+
+
 def load_sales_data():
     file_path = 'static/jsons/sales.JSON'
     with open(file_path) as f:
@@ -210,6 +220,12 @@ def inventory_tracking():
 def api_sales_data():
     sales_data = load_sales_data()
     return jsonify(sales_data)
+
+
+@app.route('/api/metrics')
+def api_metrics():
+    metrics = calculate_metrics()
+    return jsonify(metrics)
 
 
 app.add_url_rule('/', view_func=HomePage.as_view('home'))
