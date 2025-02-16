@@ -1,33 +1,14 @@
 <!DOCTYPE html>
+{% include 'resources/header.html' %}
 <html>
 <head>
     <title>Purchasing Management</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
 
-        .inventory-container {
+        .purchase-container {
             padding: 20px;
 
-        }
-
-        .dashboard-container {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .dashboard-box {
-            align-items: center;
-            padding: 20px;
-            background-color: #ffffff;
-            color: #568eac;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            max-width: 100%;
-            width: 300px;
         }
 
         .purchase-button {
@@ -101,10 +82,10 @@
     </script>
 </head>
 <body>
-{% include 'resources/header.html' %}
+
 <div class="container">
     {% include 'resources/sidebar.html' %}
-    <div class="main-content inventory-container">
+    <div class="main-content purchase-container">
         <div class="dashboard-container">
             <div class="dashboard-box">
                 <h1>Purchasing Management</h1>

@@ -1,32 +1,15 @@
 <!DOCTYPE html>
+{% include 'resources/header.html' %}
 <html>
 <head>
     <title>Flower Shop</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 20px;
-        }
-
-        .product-item {
-            background-color: #ddd;
-            text-align: center;
-            padding: 10px;
-            transition: transform 0.3s ease-in-out;
-        }
-
         .product-item img {
             width: 100%;
             height: auto;
             display: block;
             margin-bottom: 10px;
-        }
-
-        .product-item:hover {
-            transform: scale(1.05);
         }
 
         .grid {
@@ -75,32 +58,11 @@
             z-index: 10;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .grid-item {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .grid-item img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
+
 <body>
-{% include 'resources/header.html' %}
+
 
 <div class="container">
     {% include 'resources/sidebar.html' %}

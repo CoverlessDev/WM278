@@ -5,17 +5,10 @@
         <p>Each point on the line chart represents the quantity of items sold on a particular date.</p>
     </div>
 </div>
-<style>
-    .chart-box {
-        width: 100%;
-        height: 300px;
-    }
-</style>
 <script>
     async function fetchSalesData() {
         const response = await fetch('/api/sales_data');
-        const data = await response.json();
-        return data;
+        return await response.json();
     }
 
     function processSalesData(data) {

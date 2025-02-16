@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% include 'resources/header.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +52,7 @@
     </style>
 </head>
 <body>
-{% include 'resources/header.html' %}
+
 <div class="profile-container">
     <img src="/static/user/user-image.png" alt="User Image">
     <h2>Welcome, {{ session['user'] }}!</h2>

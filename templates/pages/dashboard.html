@@ -1,3 +1,4 @@
+{% include 'resources/header.html' %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,43 +6,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .dashboard-container {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .dashboard-box {
-            padding: 20px;
-            background-color: #ffffff;
-            color: #568eac;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .dashboard-button {
-            display: inline-block;
-            padding: 20px;
-            margin: 10px;
-            background-color: #568eac;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            font-size: 18px;
-        }
-
-        .dashboard-button:hover {
-            background-color: #ffffff;
-            color: #568eac;
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 100%;
-        }
-
         .access-rundown {
             margin-top: 20px;
             padding: 20px;
@@ -67,14 +31,18 @@
         }
     </style>
 </head>
+
 <body>
-{% include 'resources/header.html' %}
+
 
 <div class="container">
     {% include 'resources/sidebar.html' %}
     <div class="main-content">
-        <div class="dashboard-box">
-            <h1>Dashboard</h1>
+        <div class="dashboard-container">
+            <div class="dashboard-box">
+                <h1>Dashboard</h1>
+                <p>Your dashboard here</p>
+            </div>
         </div>
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
         <a href="{{ url_for('inventory_report') }}" class="dashboard-button">Inventory Report</a>
@@ -106,7 +74,8 @@
                     <strong>Inventory Tracking:</strong> View and manage the current inventory levels for all items.
                 </li>
                 <li>
-                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and changes.
+                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and
+                    changes.
                 </li>
                 {% if session['role'] == 'admin' or session['role'] == 'buyer' %}
                     <li>
