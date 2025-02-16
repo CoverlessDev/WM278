@@ -1,6 +1,141 @@
-{% include '/resources/header.html' %}
+{% include 'resources/header.html' %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+<style>
+    .management-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50%;
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .management-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .management-content {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        height: auto;
+        color: #568eac;
+    }
+
+    .management-box {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 48%;
+    }
+
+    .management-box h2 {
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .management-box form,
+    .management-box ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .management-box li {
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .management-box button {
+        background-color: #568eac;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .management-box button:hover {
+        background-color: #ffffff;
+        color: #568eac;
+    }
+
+    .title-box {
+        padding: 30px;
+        background-color: #ffffff;
+        color: #568eac;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 32px;
+    }
+</style>
+
 <body>
-    <h1>Inventory Management</h1>
-    <p>Admin and manager functionalities for stock updates.</p>
+<div class="container">
+    {% include 'resources/sidebar.html' %}
+    <div class="management-container">
+        <div class="management-header title-box">
+            <h1>User Management</h1>
+        </div>
+        <div class="management-content">
+            <div class="management-box">
+                <h2>Add New User</h2>
+                <form action="/add_user" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br>
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="user">User</option>
+                        <option value="buyer">Buyer</option>
+                        <option value="admin">Admin</option>
+                    </select><br>
+                    <input type="submit" value="Add User">
+                </form>
+            </div>
+
+            <div class="management-box">
+                <h2>Existing Users</h2>
+                {% for role, users in credentials.items() %}
+                    <h3>{{ role.capitalize() }}</h3>
+                    <ul>
+                        {% for user in users %}
+                            <li>
+                                {{ user.username }}
+                                <form action="{{ url_for('delete_user', role=role, username=user.username) }}"
+                                      method="post" style="display:inline;">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+
+            <div class="management-box">
+                <h2>Edit User Credentials</h2>
+                <form action="/edit_user" method="post">
+                    <label for="edit-username">Username:</label>
+                    <input type="text" id="edit-username" name="username" required><br>
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" name="new_password" required><br>
+                    <input type="submit" value="Update Credentials">
+                </form>
+            </div>
+            <div class="management-box">
+                <h2>Download Credentials</h2>
+                <form action="/download_credentials" method="get">
+                    <button type="submit">Download CSV</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'resources/footer.html' %}
 </body>
-{% include '/resources/footer.html' %}

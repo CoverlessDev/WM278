@@ -54,10 +54,13 @@
 {% include 'resources/header.html' %}
 <div class="profile-container">
     <img src="/static/user/user-image.png" alt="User Image">
-    {% if session['user'] == 'admin' %}
-        <p>Welcome, Admin! You have full access to the system.</p>
+    <h2>Welcome, {{ session['user'] }}!</h2>
+    {% if session['role'] == 'admin' %}
+        <p>You have full access to the system.</p>
+    {% elif session['role'] == 'buyer' %}
+        <p>You have access to purchasing and inventory tracking.</p>
     {% else %}
-        <p>Welcome, User! You have limited access to the system.</p>
+        <p>You have limited access to the system.</p>
     {% endif %}
     <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
 </div>

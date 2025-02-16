@@ -1,7 +1,7 @@
 import json
 from flask import Flask, render_template, request, send_file, jsonify, redirect, url_for, session
 from flask.views import MethodView
-from datetime import datetime, timedelta
+from datetime import datetime
 import os
 import io
 
@@ -20,8 +20,15 @@ def clear_session():
 
 
 def is_logged_in():
-    print("Session contents:", session)
-    return 'user' in session or 'admin' in session
+    if 'user' in session:
+        username = session['user']
+        with open('static/jsons/credentials.JSON', 'r') as file:
+            credentials = json.load(file)
+        for role, users in credentials.items():
+            if any(user['username'] == username for user in users):
+                session['role'] = role  # Store the role in the session
+                return True
+    return False
 
 
 def load_inventory(season):
@@ -148,7 +155,7 @@ class ManagementPage(MethodView):
 
 class ProfilePage(MethodView):
     def get(self):
-        return render_template('pages/profile.html', username="John Doe", user_email="john.doe@example.com")
+        return render_template('pages/profile.html')
 
 
 class DashboardPage(MethodView):
@@ -267,6 +274,21 @@ def download_inventory_report():
                      download_name='inventory_report.csv')
 
 
+@app.route('/download_credentials')
+def download_credentials():
+    credentials = load_credentials()
+    report_content = "Role,Username,Password\n"
+    for role, users in credentials.items():
+        for user in users:
+            report_content += f"{role},{user['username']},{user['password']}\n"
+
+    report_file = io.StringIO(report_content)
+    return send_file(io.BytesIO(report_file.getvalue().encode()),
+                     mimetype='text/csv',
+                     as_attachment=True,
+                     download_name='credentials.csv')
+
+
 @app.route('/inventory_tracking')
 def inventory_tracking():
     inventory = load_all_inventory()
@@ -309,18 +331,20 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        credentials = load_credentials()
 
-        if username == credentials['user']['username'] and password == credentials['user']['password']:
-            session['user'] = 'user'
-            print("User logged in, session:", session)
-            return redirect(url_for('home'))
-        elif username == credentials['admin']['username'] and password == credentials['admin']['password']:
-            session['user'] = 'admin'
-            print("Admin logged in, session:", session)
-            return redirect(url_for('home'))
-        else:
-            return 'Invalid credentials', 401
+        # Load existing credentials
+        with open('static/jsons/credentials.JSON', 'r') as file:
+            credentials = json.load(file)
+
+        # Check credentials for each role
+        for role in credentials:
+            for user in credentials[role]:
+                if user['username'] == username and user['password'] == password:
+                    session['user'] = username  # Store the username in the session
+                    session['role'] = role  # Store the role in the session
+                    return redirect(url_for('home'))
+
+        return redirect(url_for('login'))
 
     return render_template('pages/login.html')
 
@@ -353,9 +377,84 @@ def dashboard_metrics():
     return render_template('resources/dashboard_metrics.html')
 
 
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    username = request.form['username']
+    password = request.form['password']
+    role = request.form['role']
+
+    # Load existing credentials
+    with open('static/jsons/credentials.JSON', 'r') as file:
+        credentials = json.load(file)
+
+    # Ensure the role exists in the credentials
+    if role not in credentials:
+        credentials[role] = []
+
+    # Add new user
+    new_user = {
+        "username": username,
+        "password": password
+    }
+    credentials[role].append(new_user)
+
+    # Save updated credentials
+    with open('static/jsons/credentials.JSON', 'w') as file:
+        json.dump(credentials, file, indent=4)
+
+    return redirect(url_for('management'))
+
+
+@app.route('/edit_user', methods=['POST'])
+def edit_user():
+    username = request.form['username']
+    new_password = request.form['new_password']
+
+    # Load existing credentials
+    with open('static/jsons/credentials.JSON', 'r') as file:
+        credentials = json.load(file)
+
+    # Find the user and update the password
+    for role, users in credentials.items():
+        for user in users:
+            if user['username'] == username:
+                user['password'] = new_password
+                break
+
+    # Save updated credentials
+    with open('static/jsons/credentials.JSON', 'w') as file:
+        json.dump(credentials, file, indent=4)
+
+    return redirect(url_for('management'))
+
+
+@app.route('/delete_user/<role>/<username>', methods=['POST'])
+def delete_user(role, username):
+    # Load existing credentials
+    with open('static/jsons/credentials.JSON', 'r') as file:
+        credentials = json.load(file)
+
+    # Find and remove the user
+    if role in credentials:
+        credentials[role] = [user for user in credentials[role] if user['username'] != username]
+
+    # Save updated credentials
+    with open('static/jsons/credentials.JSON', 'w') as file:
+        json.dump(credentials, file, indent=4)
+
+    return redirect(url_for('management'))
+
+
+@app.route('/management')
+def management():
+    # Load existing credentials
+    with open('static/jsons/credentials.JSON', 'r') as file:
+        credentials = json.load(file)
+    return render_template('pages/management.html', credentials=credentials)
+
+
 app.add_url_rule('/', view_func=HomePage.as_view('home'))
 app.add_url_rule('/product/<season>/<product_name>', view_func=ProductPage.as_view('product'))
-app.add_url_rule('/management', view_func=ManagementPage.as_view('management'))
 app.add_url_rule('/profile', view_func=ProfilePage.as_view('profile'))
 app.add_url_rule('/purchase', view_func=PurchasePage.as_view('purchase'), methods=['GET', 'POST'])
 app.add_url_rule('/inventory_report', view_func=InventoryReportPage.as_view('inventory_report'))

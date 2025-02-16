@@ -79,7 +79,7 @@
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
         <a href="{{ url_for('inventory_report') }}" class="dashboard-button">Inventory Report</a>
 
-        {% if session['user'] == 'admin' %}
+        {% if session['role'] == 'admin' or session['role'] == 'buyer' %}
             <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
         {% endif %}
         {% include 'resources/dashboard_metrics.html' %}
@@ -91,8 +91,6 @@
             <div class="dashboard-box chart-container">
                 {% include 'resources/sales_chart.html' %}
             </div>
-            {% if session['user'] == 'admin' %}
-            {% endif %}
             <div class="dashboard-box chart-container">
                 {% include 'resources/key_metrics.html' %}
             </div>
@@ -108,10 +106,9 @@
                     <strong>Inventory Tracking:</strong> View and manage the current inventory levels for all items.
                 </li>
                 <li>
-                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and
-                    changes.
+                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and changes.
                 </li>
-                {% if session['user'] == 'admin' %}
+                {% if session['role'] == 'admin' or session['role'] == 'buyer' %}
                     <li>
                         <strong>Purchasing Management:</strong> Manage purchasing orders and supplier information.
                     </li>
