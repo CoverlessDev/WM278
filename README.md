@@ -6,7 +6,7 @@ This project is a web-based inventory management system designed to help users t
 ## Features
 - **Inventory Tracking**: View and manage current inventory levels for all items.
 - **Inventory Report**: Generate and view detailed reports on inventory status and changes.
-- **Purchasing Management**: (Admin only) Manage purchasing orders and supplier information.
+- **Purchasing Management**: (Admin and Buyer only) Manage purchasing orders and supplier information.
 - **User Management**: Handle user registration, authentication, profile management, and role-based access control.
 
 ## Libraries and Frameworks
@@ -19,6 +19,10 @@ This project is a web-based inventory management system designed to help users t
 ### Regular User
 - **Access**: Limited access to the system.
 - **Features**: Can view and manage inventory levels, generate inventory reports, and update their profile information.
+
+### Buyer
+- **Access**: Access to purchasing management and inventory tracking.
+- **Features**: Can manage purchasing orders, view and manage inventory levels, generate inventory reports, and update their profile information.
 
 ### Administrator
 - **Access**: Full access to the system.
