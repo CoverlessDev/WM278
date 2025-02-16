@@ -42,6 +42,29 @@
             height: 100%;
         }
 
+        .access-rundown {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #568eac;
+        }
+
+        .access-rundown h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .access-rundown ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .access-rundown ul li {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -55,23 +78,45 @@
         </div>
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
         <a href="{{ url_for('inventory_report') }}" class="dashboard-button">Inventory Report</a>
+
         {% if session['user'] == 'admin' %}
             <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
         {% endif %}
+        {% include 'resources/dashboard_metrics.html' %}
 
         <div class="dashboard-container">
             <div class="dashboard-box chart-container">
                 {% include 'resources/inventory_chart.html' %}
             </div>
-            {% if session['user'] == 'admin' %}
             <div class="dashboard-box chart-container">
                 {% include 'resources/sales_chart.html' %}
             </div>
+            {% if session['user'] == 'admin' %}
+            {% endif %}
             <div class="dashboard-box chart-container">
                 {% include 'resources/key_metrics.html' %}
             </div>
-            {% endif %}
+            <div class="dashboard-box chart-container">
+                {% include 'resources/top_sales.html' %}
+            </div>
+        </div>
 
+        <div class="access-rundown">
+            <h2>Access Rundown</h2>
+            <ul>
+                <li>
+                    <strong>Inventory Tracking:</strong> View and manage the current inventory levels for all items.
+                </li>
+                <li>
+                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and
+                    changes.
+                </li>
+                {% if session['user'] == 'admin' %}
+                    <li>
+                        <strong>Purchasing Management:</strong> Manage purchasing orders and supplier information.
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </div>

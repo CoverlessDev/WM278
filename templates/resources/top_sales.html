@@ -1,0 +1,34 @@
+<div class="dashboard-metrics">
+    <h2>Top Sales</h2>
+    <table class="metrics-table">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Amount Sold</th>
+        </tr>
+        </thead>
+        <tbody id="top_sales_table">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/top_sales')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('top_sales_table');
+                data.forEach(sale => {
+                    const row = document.createElement('tr');
+                    const productNameCell = document.createElement('td');
+                    const amountSoldCell = document.createElement('td');
+                    productNameCell.textContent = sale['product_name'];
+                    amountSoldCell.textContent = sale['quantity_sold'];
+                    row.appendChild(productNameCell);
+                    row.appendChild(amountSoldCell);
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching top sales:', error));
+    });
+</script>

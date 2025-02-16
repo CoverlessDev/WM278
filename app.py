@@ -1,7 +1,7 @@
 import json
 from flask import Flask, render_template, request, send_file, jsonify, redirect, url_for, session
 from flask.views import MethodView
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import io
 
@@ -46,6 +46,32 @@ def calculate_metrics():
         "total_profit": round(total_profit, 2),
         "amount_of_stock": amount_of_stock
     }
+
+
+def calculate_total_stock():
+    inventory = load_all_inventory()
+    return sum(item['stock'] for item in inventory)
+
+
+def calculate_stock_change():
+    log_file_path = 'static/jsons/stock_changes_log.JSON'
+    with open(log_file_path, 'r') as log_file:
+        log_data = json.load(log_file)
+
+    # Calculate the stock change
+    stock_change = sum(entry['new_stock'] - entry['old_stock'] for entry in log_data)
+    return stock_change
+
+
+def calculate_sales():
+    sales_data = load_sales_data()
+    total_sales = sum(sale.get('quantity_sold', 0) for sale in sales_data)
+    return total_sales
+
+
+def get_low_stock_items():
+    inventory = load_all_inventory()
+    return [item['type_of_plant'] for item in inventory if item['stock'] < 10]
 
 
 def load_sales_data():
@@ -253,6 +279,25 @@ def api_sales_data():
     return jsonify(sales_data)
 
 
+@app.route('/api/top_sales')
+def api_top_sales():
+    sales_data = load_sales_data()
+    aggregated_sales = {}
+
+    for sale in sales_data:
+        product_name = sale['product_name']
+        quantity_sold = sale.get('quantity_sold', 0)
+        if product_name in aggregated_sales:
+            aggregated_sales[product_name] += quantity_sold
+        else:
+            aggregated_sales[product_name] = quantity_sold
+
+    sorted_sales = sorted(aggregated_sales.items(), key=lambda x: x[1], reverse=True)
+    top_sales = [{'product_name': name, 'quantity_sold': quantity} for name, quantity in sorted_sales[:10]]
+
+    return jsonify(top_sales)
+
+
 @app.route('/api/metrics')
 def api_metrics():
     metrics = calculate_metrics()
@@ -286,13 +331,35 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/api/dashboard_metrics')
+def api_dashboard_metrics():
+    total_stock = calculate_total_stock()
+    stock_change = calculate_stock_change()
+    sales = calculate_sales()
+    low_stock_items = get_low_stock_items()
+    low_stock_count = len(low_stock_items)
+
+    metrics = {
+        "total_stock": total_stock,
+        "stock_change": stock_change,
+        "sales": sales,
+        "low_stock_count": low_stock_count
+    }
+    return jsonify(metrics)
+
+
+@app.route('/dashboard_metrics')
+def dashboard_metrics():
+    return render_template('resources/dashboard_metrics.html')
+
+
 app.add_url_rule('/', view_func=HomePage.as_view('home'))
 app.add_url_rule('/product/<season>/<product_name>', view_func=ProductPage.as_view('product'))
 app.add_url_rule('/management', view_func=ManagementPage.as_view('management'))
 app.add_url_rule('/profile', view_func=ProfilePage.as_view('profile'))
-app.add_url_rule('/dashboard', view_func=DashboardPage.as_view('dashboard'))
 app.add_url_rule('/purchase', view_func=PurchasePage.as_view('purchase'), methods=['GET', 'POST'])
 app.add_url_rule('/inventory_report', view_func=InventoryReportPage.as_view('inventory_report'))
+app.add_url_rule('/dashboard', view_func=DashboardPage.as_view('dashboard'))
 
 if __name__ == '__main__':
     app.run(debug=True)

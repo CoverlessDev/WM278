@@ -1,0 +1,60 @@
+<style>
+    .dashboard-metrics {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .metrics-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .metrics-table th, .metrics-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .metrics-table th {
+        background-color: #ffffff;
+        text-align: left;
+    }
+
+    .key_metrics {
+        background-color: #ffffff;
+    }
+</style>
+
+<div class="dashboard-metrics">
+    <table class="metrics-table key_metrics">
+        <thead>
+        <tr>
+            <th>Total Stock</th>
+            <th>Change in Stock</th>
+            <th>Sales</th>
+            <th>Items Below Stock of 10</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td id="total_stock"></td>
+            <td id="stock_change"></td>
+            <td id="sales"></td>
+            <td id="low_stock_count"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/dashboard_metrics')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('total_stock').textContent = data.total_stock;
+                document.getElementById('stock_change').textContent = data.stock_change;
+                document.getElementById('sales').textContent = data.sales;
+                document.getElementById('low_stock_count').textContent = data.low_stock_count;
+            })
+            .catch(error => console.error('Error fetching dashboard metrics:', error));
+    });
+</script>
