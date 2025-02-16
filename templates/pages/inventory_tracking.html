@@ -75,9 +75,11 @@
                 <div class="chart-container">
                     {% include 'resources/inventory_chart.html' %}
                 </div>
+                {% if session['user'] == 'admin' %}
                 <div class="chart-container">
                     {% include 'resources/sales_chart.html' %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

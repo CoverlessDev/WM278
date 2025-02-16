@@ -1,11 +1,27 @@
 import json
-from flask import Flask, render_template, request, send_file, jsonify
+from flask import Flask, render_template, request, send_file, jsonify, redirect, url_for, session
 from flask.views import MethodView
 from datetime import datetime
 import os
 import io
 
 app = Flask(__name__)
+app.secret_key = '123456'
+
+
+@app.before_request
+def reset_session():
+    app.before_request_funcs[None].remove(reset_session)
+    clear_session()
+
+
+def clear_session():
+    session.clear()
+
+
+def is_logged_in():
+    print("Session contents:", session)
+    return 'user' in session or 'admin' in session
 
 
 def load_inventory(season):
@@ -69,8 +85,16 @@ def log_stock_change(product_name, season, old_stock, new_stock):
         json.dump(log_data, log_file, indent=4)
 
 
+def load_credentials():
+    with open('static/jsons/credentials.JSON', 'r') as file:
+        return json.load(file)
+
+
 class HomePage(MethodView):
     def get(self):
+        print("HomePage accessed, session:", session)
+        if not is_logged_in():
+            return redirect(url_for('login'))
         season = request.args.get('season', 'summer')
         inventory = load_inventory(season)
         return render_template('pages/index.html', inventory=inventory, season=season)
@@ -171,6 +195,13 @@ class InventoryReportPage(MethodView):
                                total_stock=total_stock, total_price=total_price)
 
 
+@app.route('/check_login')
+def check_login():
+    if not is_logged_in():
+        return redirect(url_for('login'))
+    return redirect(url_for('home'))
+
+
 @app.route('/search')
 def search():
     query = request.args.get('query', '').lower()
@@ -226,6 +257,33 @@ def api_sales_data():
 def api_metrics():
     metrics = calculate_metrics()
     return jsonify(metrics)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        credentials = load_credentials()
+
+        if username == credentials['user']['username'] and password == credentials['user']['password']:
+            session['user'] = 'user'
+            print("User logged in, session:", session)
+            return redirect(url_for('home'))
+        elif username == credentials['admin']['username'] and password == credentials['admin']['password']:
+            session['user'] = 'admin'
+            print("Admin logged in, session:", session)
+            return redirect(url_for('home'))
+        else:
+            return 'Invalid credentials', 401
+
+    return render_template('pages/login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 
 app.add_url_rule('/', view_func=HomePage.as_view('home'))

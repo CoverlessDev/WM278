@@ -55,18 +55,22 @@
         </div>
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
         <a href="{{ url_for('inventory_report') }}" class="dashboard-button">Inventory Report</a>
-        <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
+        {% if session['user'] == 'admin' %}
+            <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
+        {% endif %}
 
         <div class="dashboard-container">
             <div class="dashboard-box chart-container">
                 {% include 'resources/inventory_chart.html' %}
             </div>
+            {% if session['user'] == 'admin' %}
             <div class="dashboard-box chart-container">
                 {% include 'resources/sales_chart.html' %}
             </div>
             <div class="dashboard-box chart-container">
                 {% include 'resources/key_metrics.html' %}
             </div>
+            {% endif %}
 
         </div>
     </div>
