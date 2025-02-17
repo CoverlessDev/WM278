@@ -1,11 +1,19 @@
-{% include 'resources/header.html' %}
+<!-- This file contains the HTML structure and styles for the Dashboard page.
+     It includes sections for inventory tracking, inventory report, purchasing management,
+     and various charts and metrics. -->
+
 <!DOCTYPE html>
-<html>
+{% include 'resources/header.html' %}
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Dashboard</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <!-- Include Chart.js library for charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* Styles for the access rundown section */
         .access-rundown {
             margin-top: 20px;
             padding: 20px;
@@ -34,8 +42,8 @@
 
 <body>
 
-
 <div class="container">
+    <!-- Include the sidebar -->
     {% include 'resources/sidebar.html' %}
     <div class="main-content">
         <div class="dashboard-container">
@@ -44,15 +52,19 @@
                 <p>Your dashboard here</p>
             </div>
         </div>
+        <!-- Links to different sections of the dashboard -->
         <a href="{{ url_for('inventory_tracking') }}" class="dashboard-button">Inventory Tracking</a>
         <a href="{{ url_for('inventory_report') }}" class="dashboard-button">Inventory Report</a>
 
+        <!-- Conditional link for admin or buyer roles -->
         {% if session['role'] == 'admin' or session['role'] == 'buyer' %}
-            <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
         {% endif %}
+            <a href="{{ url_for('purchase') }}" class="dashboard-button">Purchasing Management</a>
+        <!-- Include dashboard metrics -->
         {% include 'resources/dashboard_metrics.html' %}
 
         <div class="dashboard-container">
+            <!-- Include various charts -->
             <div class="dashboard-box chart-container">
                 {% include 'resources/inventory_chart.html' %}
             </div>
@@ -67,6 +79,7 @@
             </div>
         </div>
 
+        <!-- Access rundown section -->
         <div class="access-rundown">
             <h2>Access Rundown</h2>
             <ul>
@@ -74,19 +87,19 @@
                     <strong>Inventory Tracking:</strong> View and manage the current inventory levels for all items.
                 </li>
                 <li>
-                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and
-                    changes.
+                    <strong>Inventory Report:</strong> Generate and view detailed reports on inventory status and changes.
                 </li>
                 {% if session['role'] == 'admin' or session['role'] == 'buyer' %}
+                {% endif %}
                     <li>
                         <strong>Purchasing Management:</strong> Manage purchasing orders and supplier information.
                     </li>
-                {% endif %}
             </ul>
         </div>
     </div>
 </div>
 
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

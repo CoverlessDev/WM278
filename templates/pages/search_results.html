@@ -1,14 +1,20 @@
+<!-- This file contains the HTML structure and styles for the Search Results page.
+     It includes sections for displaying search results, each with an image, title, season, price, and stock information.
+     Additionally, it provides a back button to navigate to the home page. -->
+
 <!DOCTYPE html>
 {% include 'resources/header.html' %}
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Search Results</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
 </head>
 <body>
 
-
 <div class="container">
+    <!-- Include the sidebar -->
     {% include 'resources/sidebar.html' %}
     <div class="main-content">
         <div class="back-button-container">
@@ -35,6 +41,7 @@
     </div>
 </div>
 
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

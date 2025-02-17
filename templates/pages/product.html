@@ -1,10 +1,16 @@
+<!-- This file contains the HTML structure and styles for the Product Detail page.
+     It includes sections for displaying product images, information, and specific details about the product.
+     Additionally, it provides a back button to navigate to the seasonal flowers page. -->
+
 <!DOCTYPE html>
 {% include 'resources/header.html' %}
-<html>
+<html lang="en">
 <head>
     <title>{{ product.type_of_plant }}</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
+        /* Container for the product detail section */
         .product-detail {
             display: flex;
             align-items: flex-start;
@@ -12,6 +18,7 @@
             margin: auto;
         }
 
+        /* Styles for the product image section */
         .product-image {
             background-color: #ffffff;
             padding: 20px;
@@ -28,6 +35,7 @@
             border-radius: 10px;
         }
 
+        /* Styles for the product information section */
         .product-info {
             background-color: #f9f9f9;
             padding: 20px;
@@ -36,6 +44,7 @@
             flex-grow: 1;
         }
 
+        /* Styles for the product details box */
         .product-details-box {
             background-color: #e9e9e9;
             padding: 10px;
@@ -56,6 +65,7 @@
             border-right: none;
         }
 
+        /* Styles for the back button container */
         .back-button-container {
             display: flex;
             justify-content: flex-start;
@@ -65,8 +75,8 @@
 </head>
 <body>
 
-
 <div class="container">
+    <!-- Include the sidebar -->
     {% include 'resources/sidebar.html' %}
     <div class="main-content">
         <div class="back-button-container">
@@ -92,6 +102,7 @@
     </div>
 </div>
 
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

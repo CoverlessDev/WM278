@@ -1,16 +1,23 @@
+<!-- This file contains the HTML structure and styles for the Inventory Report page.
+     It includes sections for displaying items with low stock, all stock levels, and a cost breakdown.
+     Additionally, it provides a button to download the inventory report. -->
+
 <!DOCTYPE html>
 {% include 'resources/header.html' %}
-<html>
+<html lang="en">
 
 <head>
     <title>Inventory Report</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
+        /* Container for the report */
         .report-container {
             padding: 20px;
             display: block;
         }
 
+        /* Styles for the tables */
         .low-stock-table, .all-stock-table, .cost-breakdown-table {
             background-color: #ffffff;
             border-radius: 10px;
@@ -19,11 +26,13 @@
             margin-bottom: 20px;
         }
 
+        /* Container for the tables */
         .tables-container {
             display: flex;
             gap: 20px;
         }
 
+        /* General table styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -32,20 +41,24 @@
             color: #568eac;
         }
 
+        /* Table borders */
         table, th, td {
             border: 1px solid #568eac;
         }
 
+        /* Table cell padding and alignment */
         th, td {
             padding: 10px;
             text-align: left;
         }
 
+        /* Table header styles */
         th {
             background-color: #568eac;
             color: white;
         }
 
+        /* Styles for the download button */
         .download-button {
             display: inline-block;
             padding: 10px 20px;
@@ -58,6 +71,7 @@
             font-size: 16px;
         }
 
+        /* Hover effect for the download button */
         .download-button:hover {
             background-color: #ffffff;
             color: #568eac;
@@ -68,6 +82,7 @@
 <body>
 
 <div class="container">
+    <!-- Include the sidebar -->
     {% include 'resources/sidebar.html' %}
     <div class="main-content report-container">
         <div class="dashboard-container">
@@ -77,9 +92,11 @@
             </div>
         </div>
 
+        <!-- Include the dashboard header -->
         {% include 'resources/dashboard_header.html' %}
 
         <div class="tables-container">
+            <!-- Table for items with stock below 10 -->
             <div class="low-stock-table">
                 <h2>Items with Stock Below 10</h2>
                 <table>
@@ -104,6 +121,7 @@
                 </table>
             </div>
 
+            <!-- Table for all stock levels -->
             <div class="all-stock-table">
                 <h2>All Stock Levels</h2>
                 <table>
@@ -128,6 +146,7 @@
                 </table>
             </div>
 
+            <!-- Table for cost breakdown -->
             <div class="cost-breakdown-table">
                 <h2>Cost Breakdown</h2>
                 <table>
@@ -159,9 +178,11 @@
             </div>
         </div>
 
+        <!-- Download report button -->
         <a href="{{ url_for('download_inventory_report') }}" class="download-button">Download Report</a>
     </div>
 </div>
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

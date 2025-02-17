@@ -1,3 +1,16 @@
+<!-- This file contains the HTML structure and JavaScript for displaying dashboard metrics.
+     It includes a table to show total stock, change in stock, sales, and items below stock of 10.
+     The data is fetched from an API endpoint and populated into the table. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Metrics</title>
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
 <div class="dashboard-metrics">
     <table class="metrics-table">
         <thead>
@@ -20,10 +33,12 @@
 </div>
 
 <script>
+    // Fetch and display dashboard metrics when the document is fully loaded
     document.addEventListener('DOMContentLoaded', function () {
         fetch('/api/dashboard_metrics')
             .then(response => response.json())
             .then(data => {
+                // Populate the table with the fetched data
                 document.getElementById('total_stock').textContent = data.total_stock;
                 document.getElementById('stock_change').textContent = data.stock_change;
                 document.getElementById('sales').textContent = data.sales;
@@ -32,3 +47,5 @@
             .catch(error => console.error('Error fetching dashboard metrics:', error));
     });
 </script>
+</body>
+</html>

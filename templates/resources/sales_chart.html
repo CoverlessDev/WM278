@@ -1,3 +1,15 @@
+<!-- This file contains the HTML structure and JavaScript for displaying a sales chart.
+     It includes a canvas element for the chart and a script to fetch sales data and render the chart using Chart.js. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Chart</title>
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
 <div class="dashboard-box chart-container">
     <div class="chart-content">
         <canvas id="salesChart" class="chart-box"></canvas>
@@ -56,3 +68,5 @@
 
     renderChart();
 </script>
+</body>
+</html>

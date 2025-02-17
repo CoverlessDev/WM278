@@ -1,3 +1,15 @@
+<!-- This file contains the HTML structure and JavaScript for displaying key metrics.
+     It includes a table to show metrics such as total profit and amount of stock, and a script to fetch and display these metrics. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Key Metrics</title>
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
 <table class="metrics-table">
     <thead>
     <tr>
@@ -17,6 +29,7 @@
     </tbody>
 </table>
 <script>
+    // Fetch and display metrics data when the document is fully loaded
     document.addEventListener('DOMContentLoaded', function () {
         fetch('/api/metrics')
             .then(response => response.json())
@@ -27,3 +40,5 @@
             .catch(error => console.error('Error fetching metrics:', error));
     });
 </script>
+</body>
+</html>

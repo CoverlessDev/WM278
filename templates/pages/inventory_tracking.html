@@ -1,10 +1,15 @@
+<!-- This file contains the HTML structure and styles for the Live Inventory page.
+     It includes sections for tracking inventory, displaying stock charts, and conditional content for admin or buyer roles. -->
+
 <!DOCTYPE html>
 {% include 'resources/header.html' %}
-<html>
+<html lang="en">
 <head>
     <title>Live Inventory</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
+        /* Container for the inventory tracking page */
         .inventory-container {
             padding: 20px;
             display: flex;
@@ -12,10 +17,12 @@
             height: 100vh;
         }
 
+        /* Styles for the stock list section */
         .stock-list {
             flex: 1;
         }
 
+        /* Styles for the inventory content section */
         .inventory-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -27,6 +34,7 @@
 <body>
 
 <div class="container">
+    <!-- Include the sidebar -->
     {% include 'resources/sidebar.html' %}
     <div class="main-content inventory-container">
         <div class="stock-list">
@@ -36,16 +44,20 @@
                     <p>Track your inventory here</p>
                 </div>
             </div>
+            <!-- Include the dashboard header -->
             {% include 'resources/dashboard_header.html' %}
             <div class="inventory-content">
                 <div class="chart-container">
+                    <!-- Include the stock chart -->
                     {% include 'resources/stock_chart.html' %}
                 </div>
                 <div class="chart-container">
+                    <!-- Include the inventory chart -->
                     {% include 'resources/inventory_chart.html' %}
                 </div>
                 {% if session['role'] == 'admin' or session['role'] == 'buyer' %}
                     <div class="chart-container">
+                        <!-- Include the sales chart for admin or buyer roles -->
                         {% include 'resources/sales_chart.html' %}
                     </div>
                 {% endif %}
@@ -53,6 +65,7 @@
         </div>
     </div>
 </div>
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

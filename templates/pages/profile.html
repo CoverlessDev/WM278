@@ -1,11 +1,16 @@
+<!-- This file contains the HTML structure and styles for the Profile Page.
+     It includes sections for displaying user information, role-based messages, and a logout button. -->
+
 <!DOCTYPE html>
 {% include 'resources/header.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Profile Page</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
+        /* Container for the profile section */
         .profile-container {
             max-width: 600px;
             margin: 50px auto;
@@ -16,6 +21,7 @@
             text-align: center;
         }
 
+        /* Styles for the profile image */
         .profile-container img {
             width: 100px;
             height: 100px;
@@ -23,16 +29,19 @@
             margin-bottom: 20px;
         }
 
+        /* Styles for the profile header */
         .profile-container h2 {
             margin-bottom: 10px;
             font-size: 24px;
         }
 
+        /* Styles for the profile paragraph */
         .profile-container p {
             font-size: 16px;
             color: #666;
         }
 
+        /* Styles for the logout button */
         .logout-button {
             display: inline-block;
             padding: 10px 20px;
@@ -45,6 +54,7 @@
             font-size: 16px;
         }
 
+        /* Hover effect for the logout button */
         .logout-button:hover {
             background-color: #ffffff;
             color: #568eac;
@@ -65,6 +75,7 @@
     {% endif %}
     <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
 </div>
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

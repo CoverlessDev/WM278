@@ -68,5 +68,12 @@
         "old_stock": 6,
         "new_stock": 7,
         "timestamp": "2025-02-21T17:45:00.000Z"
+    },
+    {
+        "product_name": "Marigold",
+        "season": "Autumn",
+        "old_stock": 4,
+        "new_stock": 5,
+        "timestamp": "2025-02-17T21:22:35.477778"
     }
 ]

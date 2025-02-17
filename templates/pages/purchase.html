@@ -1,16 +1,21 @@
-<!DOCTYPE html>
+<!-- This file contains the HTML structure and styles for the Purchasing Management page.
+     It includes sections for displaying inventory, selecting products, and managing purchasing activities. -->
+
+<!DOCTYPE html>'
 {% include 'resources/header.html' %}
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Purchasing Management</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
-
+        /* Container for the purchase section */
         .purchase-container {
             padding: 20px;
-
         }
 
+        /* Styles for the purchase button */
         .purchase-button {
             display: inline-block;
             padding: 20px;
@@ -23,11 +28,13 @@
             font-size: 18px;
         }
 
+        /* Hover effect for the purchase button */
         .purchase-button:hover {
             background-color: #ffffff;
             color: #568eac;
         }
 
+        /* Styles for the table */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -50,20 +57,24 @@
             color: white;
         }
 
+        /* Highlight effect for selected rows */
         .highlight {
             background-color: #ffa5ef;
         }
 
+        /* Container for the table */
         .table-container {
             flex: 1;
             margin-right: 20px;
             padding: 20px;
         }
 
+        /* Container for the form */
         .form-container {
             flex: 0 0 300px;
         }
 
+        /* Styles for the form box */
         .form-box {
             padding: 20px;
             background-color: #ffffff;
@@ -84,6 +95,7 @@
 <body>
 
 <div class="container">
+    <!-- Include the sidebar -->
     {% include 'resources/sidebar.html' %}
     <div class="main-content purchase-container">
         <div class="dashboard-container">
@@ -93,7 +105,7 @@
             </div>
         </div>
         <div class="table-container">
-
+            <!-- Include the dashboard header -->
             {% include 'resources/dashboard_header.html' %}
             <table>
                 <thead>
@@ -126,6 +138,7 @@
         </div>
     </div>
 </div>
+<!-- Include the footer -->
 {% include 'resources/footer.html' %}
 </body>
 </html>

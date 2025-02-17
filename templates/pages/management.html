@@ -1,82 +1,102 @@
-{% include 'resources/header.html' %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
-<style>
-    .management-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 50%;
-        padding: 20px;
-        flex-grow: 1;
-    }
+<!-- This file contains the HTML structure for the user management page.
+     It includes forms for adding, editing, and deleting users, as well as downloading credentials.
+     The page is styled using internal CSS and includes a sidebar and footer. -->
 
-    .management-header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include the header HTML file -->
+    {% include 'resources/header.html' %}
+    <!-- Link to the common CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+    <style>
+        /* Styles for the management container */
+        .management-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 50%;
+            padding: 20px;
+            flex-grow: 1;
+        }
 
-    .management-content {
-        width: 80%;
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        height: auto;
-        color: #568eac;
-    }
+        /* Styles for the management header */
+        .management-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    .management-box {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 48%;
-    }
+        /* Styles for the management content */
+        .management-content {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            height: auto;
+            color: #568eac;
+        }
 
-    .management-box h2 {
-        margin-top: 0;
-        font-size: 24px;
-    }
+        /* Styles for the management box */
+        .management-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
 
-    .management-box form,
-    .management-box ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
+        /* Styles for the management box headers */
+        .management-box h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
 
-    .management-box li {
-        margin-bottom: 15px;
-        font-size: 18px;
-    }
+        /* Styles for the forms and lists inside the management box */
+        .management-box form,
+        .management-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
 
-    .management-box button {
-        background-color: #568eac;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+        /* Styles for the list items inside the management box */
+        .management-box li {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
 
-    .management-box button:hover {
-        background-color: #ffffff;
-        color: #568eac;
-    }
+        /* Styles for the buttons inside the management box */
+        .management-box button {
+            background-color: #568eac;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-    .title-box {
-        padding: 30px;
-        background-color: #ffffff;
-        color: #568eac;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        font-size: 32px;
-    }
-</style>
+        /* Hover effect for the buttons inside the management box */
+        .management-box button:hover {
+            background-color: #ffffff;
+            color: #568eac;
+        }
 
+        /* Styles for the title box */
+        .title-box {
+            padding: 30px;
+            background-color: #ffffff;
+            color: #568eac;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 32px;
+        }
+    </style>
+</head>
 <body>
 <div class="container">
+    <!-- Include the sidebar HTML file -->
     {% include 'resources/sidebar.html' %}
     <div class="management-container">
         <div class="management-header title-box">
@@ -85,6 +105,7 @@
         <div class="management-content">
             <div class="management-box">
                 <h2>Add New User</h2>
+                <!-- Form to add a new user -->
                 <form action="/add_user" method="post">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required><br>
@@ -102,12 +123,14 @@
 
             <div class="management-box">
                 <h2>Existing Users</h2>
+                <!-- List of existing users -->
                 {% for role, users in credentials.items() %}
                     <h3>{{ role.capitalize() }}</h3>
                     <ul>
                         {% for user in users %}
                             <li>
                                 {{ user.username }}
+                                <!-- Form to delete a user -->
                                 <form action="{{ url_for('delete_user', role=role, username=user.username) }}"
                                       method="post" style="display:inline;">
                                     <button type="submit">Delete</button>
@@ -120,6 +143,7 @@
 
             <div class="management-box">
                 <h2>Edit User Credentials</h2>
+                <!-- Form to edit user credentials -->
                 <form action="/edit_user" method="post">
                     <label for="edit-username">Username:</label>
                     <input type="text" id="edit-username" name="username" required><br>
@@ -130,6 +154,7 @@
             </div>
             <div class="management-box">
                 <h2>Download Credentials</h2>
+                <!-- Form to download credentials as CSV -->
                 <form action="/download_credentials" method="get">
                     <button type="submit">Download CSV</button>
                 </form>
@@ -137,5 +162,7 @@
         </div>
     </div>
 </div>
+<!-- Include the footer HTML file -->
 {% include 'resources/footer.html' %}
 </body>
+</html>

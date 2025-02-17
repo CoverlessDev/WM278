@@ -1,3 +1,15 @@
+<!-- This file contains the HTML structure and JavaScript for displaying the top sales metrics.
+     It includes a table to display the product names and the amount sold, and a script to fetch the top sales data from an API. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Sales</title>
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
 <div class="dashboard-metrics">
     <h2>Top Sales</h2>
     <table class="metrics-table">
@@ -32,3 +44,5 @@
             .catch(error => console.error('Error fetching top sales:', error));
     });
 </script>
+</body>
+</html>

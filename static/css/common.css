@@ -1,10 +1,11 @@
-/* CSS Reset */
+/* Reset margin, padding, and box-sizing for all elements */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Define CSS variables for colors */
 :root {
     --primary-bg: #568eac;
     --primary-color: #568eac;
@@ -14,16 +15,19 @@
     --hover-color: #ffffff;
 }
 
+/* Set font and background color for the body */
 body {
     font-family: Arial, sans-serif;
     background-color: #686868;
 }
 
+/* Set background and text color for header and sidebar */
 .header, .sidebar {
     background-color: var(--primary-bg);
     color: var(--primary-color);
 }
 
+/* Style the header */
 .header {
     padding: 10px;
     text-align: center;
@@ -34,6 +38,7 @@ body {
     box-sizing: border-box;
 }
 
+/* Style the header image */
 .header img {
     max-width: 100px;
     max-height: 60px;
@@ -41,6 +46,7 @@ body {
     width: auto;
 }
 
+/* Style the navigation bar */
 .nav {
     display: flex;
     gap: 15px;
@@ -48,6 +54,7 @@ body {
     justify-content: center;
 }
 
+/* Style the navigation links */
 .nav a {
     text-decoration: none;
     color: var(--primary-color);
@@ -55,6 +62,7 @@ body {
     border-radius: 10px;
 }
 
+/* Style the user profile container */
 .user-profile-container {
     display: flex;
     align-items: center;
@@ -63,16 +71,19 @@ body {
     right: 10px;
 }
 
+/* Style the main container */
 .container {
     display: flex;
 }
 
+/* Style the main content area */
 .main-content {
     flex: 1;
     padding: 20px;
     text-align: center;
 }
 
+/* Style the search bar form */
 .search-bar form {
     display: flex;
     justify-content: center;
@@ -81,6 +92,7 @@ body {
     margin: 0 auto 20px;
 }
 
+/* Style the search input */
 .search-input {
     width: 600px;
     padding: 10px;
@@ -91,6 +103,7 @@ body {
     height: 40px;
 }
 
+/* Style the search button */
 .search-button {
     background-color: #ffffff;
     border: 1px solid #ccc;
@@ -104,20 +117,24 @@ body {
     height: 40px;
 }
 
+/* Style the search button image */
 .search-button img {
     width: 20px;
     height: 20px;
 }
 
+/* Style the sidebar and navigation padding */
 .sidebar, .nav {
     padding: 20px;
 }
 
+/* Style the sidebar and navigation lists */
 .sidebar ul, .nav ul {
     list-style-type: none;
     padding: 0;
 }
 
+/* Style the sidebar and navigation list items */
 .sidebar ul li, .nav ul li {
     background-color: var(--secondary-bg);
     margin: 10px 0;
@@ -127,31 +144,37 @@ body {
     border-radius: 10px;
 }
 
+/* Style the sidebar and navigation links */
 .sidebar ul li a, .nav ul li a {
     text-decoration: none;
     color: var(--secondary-color);
     font-weight: bold;
 }
 
+/* Hover effect for sidebar and navigation list items */
 .sidebar ul li:hover, .nav ul li:hover {
     background-color: var(--hover-bg);
     color: var(--hover-color);
 }
 
+/* Hover effect for sidebar and navigation links */
 .sidebar ul li:hover a, .nav ul li:hover a {
     color: var(--hover-color);
 }
 
+/* Style for all anchor tags */
 a {
     text-decoration: none;
     color: inherit;
 }
 
+/* Hover effect for all anchor tags */
 a:hover {
     text-decoration: none;
     color: inherit;
 }
 
+/* Style for white box elements */
 .white-box {
     background-color: #ffffff;
     padding: 10px;
@@ -161,10 +184,12 @@ a:hover {
     align-items: center;
 }
 
+/* Style for images inside white box elements */
 .white-box img {
     margin-right: 10px;
 }
 
+/* Style for button elements */
 .button {
     display: inline-block;
     padding: 10px;
@@ -182,11 +207,13 @@ a:hover {
     margin: 10px 0;
 }
 
+/* Hover effect for button elements */
 .button:hover {
     background-color: var(--hover-bg);
     color: var(--hover-color);
 }
 
+/* Style for the dashboard container */
 .dashboard-container {
     padding: 20px;
     display: flex;
@@ -195,6 +222,7 @@ a:hover {
     gap: 10px;
 }
 
+/* Style for the dashboard box */
 .dashboard-box {
     align-items: center;
     padding: 20px;
@@ -207,6 +235,7 @@ a:hover {
     width: 300px;
 }
 
+/* Style for the dashboard buttons */
 .dashboard-button {
     display: inline-block;
     padding: 20px;
@@ -219,11 +248,13 @@ a:hover {
     font-size: 18px;
 }
 
+/* Hover effect for the dashboard buttons */
 .dashboard-button:hover {
     background-color: #ffffff;
     color: #568eac;
 }
 
+/* Style for the grid container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -231,6 +262,7 @@ a:hover {
     padding: 20px;
 }
 
+/* Style for the grid items */
 .grid-item {
     background-color: #ffffff;
     padding: 20px;
@@ -239,6 +271,7 @@ a:hover {
     text-align: center;
 }
 
+/* Style for images inside grid items */
 .grid-item img {
     width: 150px;
     height: 150px;
@@ -247,34 +280,40 @@ a:hover {
     margin-bottom: 10px;
 }
 
+/* Style for the chart container */
 .chart-container {
     width: 100%;
     height: 100%;
     flex: 1;
 }
 
+/* Style for the metrics table */
 .metrics-table {
     width: 100%;
     border-collapse: collapse;
     background: #ffffff;
 }
 
+/* Style for the table headers and cells */
 .metrics-table th, .metrics-table td {
     border: 1px solid #ddd;
     padding: 12px;
 }
 
+/* Style for the table headers */
 .metrics-table th {
     background-color: #568eac;
     color: white;
     text-align: left;
 }
 
+/* Style for the dashboard metrics section */
 .dashboard-metrics {
     width: 100%;
     margin-bottom: 20px;
 }
 
+/* Style for the chart box */
 .chart-box {
     width: 100%;
     height: 300px;

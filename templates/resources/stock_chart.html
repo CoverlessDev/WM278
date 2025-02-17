@@ -1,3 +1,15 @@
+<!-- This file contains the HTML structure and JavaScript for displaying a stock changes chart.
+     It includes a canvas element for the chart and a script to fetch stock change data and render the chart using Chart.js. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Chart</title>
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
 <div class="dashboard-box chart-container">
     <div class="chart-content">
         <canvas id="stock_chart" class="chart-box"></canvas>
@@ -12,9 +24,6 @@
         flex-direction: column;
         align-items: center;
     }
-
-
-
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
@@ -90,3 +99,5 @@
         }
     });
 </script>
+</body>
+</html>

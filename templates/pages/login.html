@@ -1,10 +1,15 @@
+<!-- This file contains the HTML structure and styles for the Login page.
+     It includes a form for users to enter their username and password to log in. -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <!-- Link to common CSS styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
     <style>
+        /* Container for the login form */
         .login-container {
             max-width: 400px;
             margin: 50px auto;
@@ -15,27 +20,32 @@
             text-align: center;
         }
 
+        /* Styles for the logo image */
         .login-container img {
             width: 150px;
             margin-bottom: 20px;
         }
 
+        /* Styles for the main heading */
         .login-container h1 {
             margin-bottom: 20px;
             font-size: 24px;
         }
 
+        /* Styles for the login form */
         .login-container form {
             display: flex;
             flex-direction: column;
         }
 
+        /* Styles for the input fields */
         .login-container input {
             margin-bottom: 10px;
             padding: 10px;
             font-size: 16px;
         }
 
+        /* Styles for the submit button */
         .login-container button {
             padding: 10px;
             background-color: #568eac;
@@ -46,6 +56,7 @@
             cursor: pointer;
         }
 
+        /* Hover effect for the submit button */
         .login-container button:hover {
             background-color: #ffffff;
             color: #568eac;

@@ -1,3 +1,14 @@
+<!-- This file contains the HTML structure for the header section of the website.
+     It includes a logo, navigation menu, and user profile link. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
 <body>
 <div class="header">
     <a href="{{ url_for('home') }}">
@@ -7,12 +18,15 @@
         </div>
     </a>
     <div class="nav">
+        <!-- Include the navigation menu -->
         {% include 'resources/menu.html' %}
     </div>
     <div class="user-profile-container">
         <a href="{{ url_for('profile') }}">
+            <!-- Include the user profile -->
             {% include 'resources/user.html' %}
         </a>
     </div>
 </div>
 </body>
+</html>
