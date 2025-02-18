@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'resources/header.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Management</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+<div class="container">
+    {% include 'resources/sidebar.html' %}
+    <div class="management-container">
+        <div class="management-header title-box">
+            <h1>Stock Management</h1>
+        </div>
+
+        {% include 'resources/dashboard_header.html' %}
+
+        <div class="management-content">
+            <div class="management-box">
+                <div class="stock-list">
+                    <h2>Current Stock</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Season</th>
+                                <th>Stock</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in inventory %}
+                                <tr>
+                                    <td>{{ product.type_of_plant }}</td>
+                                    <td>{{ product.season }}</td>
+                                    <td>{{ product.stock }}</td>
+                                    <td>
+                                        <form action="{{ url_for('delete_product', product_name=product.type_of_plant, season=product.season) }}"
+                                              method="post" style="display:inline;">
+                                            <input type="submit" value="Delete">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="management-box">
+                <div class="stock-form">
+                    <h2>Add Stock</h2>
+                    <form action="/add_product" method="post">
+                        <label for="add-product">Product Name:</label>
+                        <input type="text" id="add-product" name="product_name" required><br>
+                        <label for="add-amount">Amount:</label>
+                        <input type="number" id="add-amount" name="amount" required><br>
+                        <label for="season">Season:</label>
+                        <select id="season" name="season" required>
+                            <option value="Summer">Summer</option>
+                            <option value="Autumn">Autumn</option>
+                            <option value="Winter">Winter</option>
+                        </select><br>
+                        <label for="price">Price:</label>
+                        <input type="number" step="0.01" id="price" name="price" required><br>
+                        <label for="image_link">Image Link:</label>
+                        <input type="text" id="image_link" name="image_link" required><br>
+                        <label for="hydration">Hydration:</label>
+                        <input type="text" id="hydration" name="hydration" required><br>
+                        <label for="light">Light:</label>
+                        <input type="text" id="light" name="light" required><br>
+                        <label for="heat">Heat:</label>
+                        <input type="text" id="heat" name="heat" required><br>
+                        <label for="information">Information:</label>
+                        <textarea id="information" name="information" required></textarea><br>
+                        <input type="hidden" name="action" value="add">
+                        <input type="submit" value="Add Stock">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'resources/footer.html' %}
+
+</body>
+</html>
