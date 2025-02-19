@@ -9,20 +9,25 @@ app = Flask(__name__)
 app.secret_key = '123456'
 
 
-# Before each request, reset the session
 @app.before_request
 def reset_session():
+    """Before each request, reset the session."""
     app.before_request_funcs[None].remove(reset_session)
     clear_session()
 
 
-# Clear the session
 def clear_session():
+    """Clear the session."""
     session.clear()
 
 
-# Check if the user is logged in
 def is_logged_in():
+    """
+    Check if the user is logged in.
+
+    Returns:
+        bool: True if the user is logged in, False otherwise.
+    """
     if 'user' in session:
         username = session['user']
         with open('static/jsons/credentials.JSON', 'r') as file:
@@ -34,15 +39,32 @@ def is_logged_in():
     return False
 
 
-# Load inventory for a specific season
 def load_inventory(season):
+    """
+    Load inventory for a specific season.
+
+    Args:
+        season (str): The season to load inventory for.
+
+    Returns:
+        list: The inventory for the specified season.
+    """
     file_path = f'static/jsons/{season}flowers.JSON'
     with open(file_path) as f:
         return json.load(f)
 
 
-# Load a specific product from the inventory
 def load_product(season, product_name):
+    """
+    Load a specific product from the inventory.
+
+    Args:
+        season (str): The season of the product.
+        product_name (str): The name of the product.
+
+    Returns:
+        dict: The product details if found, None otherwise.
+    """
     inventory = load_inventory(season)
     for product in inventory:
         if product['type_of_plant'] == product_name:
@@ -50,8 +72,13 @@ def load_product(season, product_name):
     return None
 
 
-# Calculate metrics for the inventory
 def calculate_metrics():
+    """
+    Calculate metrics for the inventory.
+
+    Returns:
+        dict: The total profit and amount of stock.
+    """
     inventory = load_all_inventory()
     total_profit = sum(item['stock'] * item['price'] for item in inventory)
     amount_of_stock = sum(item['stock'] for item in inventory)
@@ -61,14 +88,24 @@ def calculate_metrics():
     }
 
 
-# Calculate the total stock
 def calculate_total_stock():
+    """
+    Calculate the total stock.
+
+    Returns:
+        int: The total stock.
+    """
     inventory = load_all_inventory()
     return sum(item['stock'] for item in inventory)
 
 
-# Calculate the stock change
 def calculate_stock_change():
+    """
+    Calculate the stock change.
+
+    Returns:
+        int: The stock change.
+    """
     log_file_path = 'static/jsons/stock_changes_log.JSON'
     with open(log_file_path, 'r') as log_file:
         log_data = json.load(log_file)
@@ -77,28 +114,48 @@ def calculate_stock_change():
     return stock_change
 
 
-# Calculate total sales
 def calculate_sales():
+    """
+    Calculate total sales.
+
+    Returns:
+        int: The total sales.
+    """
     sales_data = load_sales_data()
     total_sales = sum(sale.get('quantity_sold', 0) for sale in sales_data)
     return total_sales
 
 
-# Get items with low stock
 def get_low_stock_items():
+    """
+    Get items with low stock.
+
+    Returns:
+        list: The items with stock less than 10.
+    """
     inventory = load_all_inventory()
     return [item['type_of_plant'] for item in inventory if item['stock'] < 10]
 
 
-# Load sales data
 def load_sales_data():
+    """
+    Load sales data.
+
+    Returns:
+        list: The sales data.
+    """
     file_path = 'static/jsons/sales.JSON'
     with open(file_path) as f:
         return json.load(f)
 
 
-# Load all inventory data
 def load_all_inventory():
+    """
+    Load all inventory data.
+
+    Returns:
+        list: The combined inventory for all seasons.
+    """
     seasons = ['summer', 'autumn', 'winter']
     all_inventory = []
     for season in seasons:
@@ -108,8 +165,16 @@ def load_all_inventory():
     return all_inventory
 
 
-# Log stock changes
 def log_stock_change(product_name, season, old_stock, new_stock):
+    """
+    Log stock changes.
+
+    Args:
+        product_name (str): The name of the product.
+        season (str): The season of the product.
+        old_stock (int): The old stock quantity.
+        new_stock (int): The new stock quantity.
+    """
     log_entry = {
         "product_name": product_name,
         "season": season,
@@ -130,15 +195,22 @@ def log_stock_change(product_name, season, old_stock, new_stock):
         json.dump(log_data, log_file, indent=4)
 
 
-# Load user credentials
 def load_credentials():
+    """
+    Load user credentials.
+
+    Returns:
+        dict: The user credentials.
+    """
     with open('static/jsons/credentials.JSON', 'r') as file:
         return json.load(file)
 
 
-# Home page view
 class HomePage(MethodView):
+    """Home page view."""
+
     def get(self):
+        """Handle GET requests."""
         print("HomePage accessed, session:", session)
         if not is_logged_in():
             return redirect(url_for('login'))
@@ -147,9 +219,11 @@ class HomePage(MethodView):
         return render_template('pages/index.html', inventory=inventory, season=season)
 
 
-# Product page view
 class ProductPage(MethodView):
+    """Product page view."""
+
     def get(self, season, product_name):
+        """Handle GET requests."""
         product = load_product(season, product_name)
         if product:
             return render_template('pages/product.html', product=product)
@@ -157,38 +231,49 @@ class ProductPage(MethodView):
             return "Product not found", 404
 
 
-# Inventory page view
 class InventoryPage(MethodView):
+    """Inventory page view."""
+
     def get(self):
+        """Handle GET requests."""
         inventory = load_all_inventory()
         return render_template('pages/inventory_tracking.html', inventory=inventory)
 
 
-# Management page view
 class ManagementPage(MethodView):
+    """Management page view."""
+
     def get(self):
+        """Handle GET requests."""
         return render_template('pages/management.html')
 
 
-# Profile page view
 class ProfilePage(MethodView):
+    """Profile page view."""
+
     def get(self):
+        """Handle GET requests."""
         return render_template('pages/profile.html')
 
 
-# Dashboard page view
 class DashboardPage(MethodView):
+    """Dashboard page view."""
+
     def get(self):
+        """Handle GET requests."""
         return render_template('pages/dashboard.html')
 
 
-# Purchase page view
 class PurchasePage(MethodView):
+    """Purchase page view."""
+
     def get(self):
+        """Handle GET requests."""
         inventory = load_all_inventory()
         return render_template('pages/purchase.html', inventory=inventory)
 
     def post(self):
+        """Handle POST requests."""
         selected_product = request.form['selectedProduct']
         amount = int(request.form['amount'])
         inventory = load_all_inventory()
@@ -237,9 +322,11 @@ class PurchasePage(MethodView):
         return render_template('pages/purchase.html', inventory=inventory)
 
 
-# Inventory report page view
 class InventoryReportPage(MethodView):
+    """Inventory report page view."""
+
     def get(self):
+        """Handle GET requests."""
         inventory = load_all_inventory()
         low_stock_items = [item for item in inventory if item['stock'] < 10]
         total_stock = sum(item['stock'] for item in inventory)
@@ -249,17 +336,27 @@ class InventoryReportPage(MethodView):
                                total_stock=total_stock, total_price=total_price)
 
 
-# Check login route
 @app.route('/check_login')
 def check_login():
+    """
+    Check login route.
+
+    Returns:
+        Response: Redirects to the home page if logged in, otherwise to the login page.
+    """
     if not is_logged_in():
         return redirect(url_for('login'))
     return redirect(url_for('home'))
 
 
-# Search route
 @app.route('/search')
 def search():
+    """
+    Search route.
+
+    Returns:
+        Response: Renders the search results page with the search query results.
+    """
     query = request.args.get('query', '').lower()
     all_seasons = ['summer', 'autumn', 'winter']
     results = []
@@ -269,25 +366,40 @@ def search():
     return render_template('pages/search_results.html', results=results, query=query)
 
 
-# API route to get inventory data
 @app.route('/api/inventory')
 def api_inventory():
+    """
+    API route to get inventory data.
+
+    Returns:
+        str: JSON string of the inventory data.
+    """
     inventory = load_all_inventory()
     return json.dumps(inventory)
 
 
-# API route to get stock changes
 @app.route('/api/changes')
 def api_changes():
+    """
+    API route to get stock changes.
+
+    Returns:
+        Response: JSON response of the stock changes log data.
+    """
     log_file_path = 'static/jsons/stock_changes_log.JSON'
     with open(log_file_path, 'r') as log_file:
         log_data = json.load(log_file)
     return jsonify(log_data)
 
 
-# Route to download inventory report
 @app.route('/download_inventory_report')
 def download_inventory_report():
+    """
+    Route to download inventory report.
+
+    Returns:
+        Response: CSV file of the inventory report.
+    """
     inventory = load_all_inventory()
     report_content = "Type of Plant,Season,Price,Stock\n"
     for item in inventory:
@@ -300,9 +412,14 @@ def download_inventory_report():
                      download_name='inventory_report.csv')
 
 
-# Route to download credentials
 @app.route('/download_credentials')
 def download_credentials():
+    """
+    Route to download credentials.
+
+    Returns:
+        Response: CSV file of the credentials.
+    """
     credentials = load_credentials()
     report_content = "Role,Username,Password\n"
     for role, users in credentials.items():
@@ -316,23 +433,38 @@ def download_credentials():
                      download_name='credentials.csv')
 
 
-# Route to track inventory
 @app.route('/inventory_tracking')
 def inventory_tracking():
+    """
+    Route to track inventory.
+
+    Returns:
+        Response: Renders the inventory tracking page.
+    """
     inventory = load_all_inventory()
     return render_template('pages/inventory_tracking.html', inventory=inventory)
 
 
-# API route to get sales data
 @app.route('/api/sales_data')
 def api_sales_data():
+    """
+    API route to get sales data.
+
+    Returns:
+        Response: JSON response of the sales data.
+    """
     sales_data = load_sales_data()
     return jsonify(sales_data)
 
 
-# API route to get top sales data
 @app.route('/api/top_sales')
 def api_top_sales():
+    """
+    API route to get top sales data.
+
+    Returns:
+        Response: JSON response of the top sales data.
+    """
     sales_data = load_sales_data()
     aggregated_sales = {}
 
@@ -350,16 +482,26 @@ def api_top_sales():
     return jsonify(top_sales)
 
 
-# API route to get metrics
 @app.route('/api/metrics')
 def api_metrics():
+    """
+    API route to get metrics.
+
+    Returns:
+        Response: JSON response of the metrics.
+    """
     metrics = calculate_metrics()
     return jsonify(metrics)
 
 
-# Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Login route.
+
+    Returns:
+        Response: Renders the login page or redirects to the home page if login is successful.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -381,16 +523,26 @@ def login():
     return render_template('pages/login.html')
 
 
-# Logout route
 @app.route('/logout')
 def logout():
+    """
+    Logout route.
+
+    Returns:
+        Response: Clears the session and redirects to the login page.
+    """
     session.clear()
     return redirect(url_for('login'))
 
 
-# API route to get dashboard metrics
 @app.route('/api/dashboard_metrics')
 def api_dashboard_metrics():
+    """
+    API route to get dashboard metrics.
+
+    Returns:
+        Response: JSON response of the dashboard metrics.
+    """
     total_stock = calculate_total_stock()
     stock_change = calculate_stock_change()
     sales = calculate_sales()
@@ -406,15 +558,25 @@ def api_dashboard_metrics():
     return jsonify(metrics)
 
 
-# Route to display dashboard metrics
 @app.route('/dashboard_metrics')
 def dashboard_metrics():
+    """
+    Route to display dashboard metrics.
+
+    Returns:
+        Response: Renders the dashboard metrics page.
+    """
     return render_template('resources/dashboard_metrics.html')
 
 
-# Route to add a new user
 @app.route('/add_user', methods=['POST'])
 def add_user():
+    """
+    Route to add a new user.
+
+    Returns:
+        Response: Redirects to the management page.
+    """
     username = request.form['username']
     password = request.form['password']
     role = request.form['role']
@@ -441,9 +603,14 @@ def add_user():
     return redirect(url_for('management'))
 
 
-# Route to edit an existing user
 @app.route('/edit_user', methods=['POST'])
 def edit_user():
+    """
+    Route to edit an existing user.
+
+    Returns:
+        Response: Redirects to the management page.
+    """
     username = request.form['username']
     new_password = request.form['new_password']
 
@@ -465,9 +632,14 @@ def edit_user():
     return redirect(url_for('management'))
 
 
-# Route to delete a user
 @app.route('/delete_user/<role>/<username>', methods=['POST'])
 def delete_user(role, username):
+    """
+    Route to delete a user.
+
+    Returns:
+        Response: Redirects to the management page.
+    """
     # Load existing credentials
     with open('static/jsons/credentials.JSON', 'r') as file:
         credentials = json.load(file)
@@ -483,17 +655,32 @@ def delete_user(role, username):
     return redirect(url_for('management'))
 
 
-# Management page view
 @app.route('/management')
 def management():
+    """
+    Management page view.
+
+    Returns:
+        Response: Renders the management page with the credentials.
+    """
     # Load existing credentials
     with open('static/jsons/credentials.JSON', 'r') as file:
         credentials = json.load(file)
     return render_template('pages/management.html', credentials=credentials)
 
-
 @app.route('/add_product', methods=['POST'])
 def add_product():
+    """
+    Add a new product to the inventory.
+
+    This route handles the addition of a new product to the inventory. It receives
+    product details from a POST request, loads the existing inventory for the specified
+    season, adds the new product to the inventory, and saves the updated inventory back
+    to the JSON file.
+
+    Returns:
+        Response: Redirects to the stock management page.
+    """
     product_name = request.form['product_name']
     amount = int(request.form['amount'])
     season = request.form['season']
@@ -532,6 +719,21 @@ def add_product():
 
 @app.route('/delete_product/<season>/<product_name>', methods=['POST'])
 def delete_product(season, product_name):
+    """
+    Delete a product from the inventory.
+
+    This route handles the deletion of a product from the inventory. It receives the
+    product name and season from a POST request, loads the existing inventory for the
+    specified season, removes the product from the inventory, and saves the updated
+    inventory back to the JSON file.
+
+    Args:
+        season (str): The season of the product.
+        product_name (str): The name of the product.
+
+    Returns:
+        Response: Redirects to the stock management page.
+    """
     # Load existing inventory
     file_path = f'static/jsons/{season}flowers.JSON'
     with open(file_path, 'r') as file:
@@ -546,9 +748,18 @@ def delete_product(season, product_name):
 
     return redirect(url_for('stock_management'))
 
-
 @app.route('/stock_management', methods=['GET', 'POST'])
 def stock_management():
+    """
+    Manage the stock inventory.
+
+    This route handles the management of the stock inventory. For POST requests, it
+    updates the stock of an existing product by adding the specified amount. For GET
+    requests, it loads the entire inventory and renders the stock management page.
+
+    Returns:
+        Response: Renders the stock management page with the current inventory.
+    """
     if request.method == 'POST':
         product_name = request.form['product_name']
         season = request.form['season']
@@ -572,9 +783,6 @@ def stock_management():
 
     inventory = load_all_inventory()
     return render_template('pages/stock_management.html', inventory=inventory)
-
-
-# Add URL rules for the views
 
 app.add_url_rule('/', view_func=HomePage.as_view('home'))
 app.add_url_rule('/product/<season>/<product_name>', view_func=ProductPage.as_view('product'))
